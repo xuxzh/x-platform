@@ -1,0 +1,76 @@
+{
+  "name": "x-lcdp-platform",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "xp",
+  "sourceRoot": "apps/x-lcdp-platform/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "outputPath": "dist/apps/x-lcdp-platform",
+        "index": "apps/x-lcdp-platform/src/index.html",
+        "browser": "apps/x-lcdp-platform/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/x-lcdp-platform/tsconfig.app.json",
+        "inlineStyleLanguage": "less",
+        "assets": [
+          "apps/x-lcdp-platform/src/favicon.ico",
+          "apps/x-lcdp-platform/src/assets"
+        ],
+        "styles": [
+          "@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/x-lcdp-platform/src/styles.less"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "x-lcdp-platform:build:production"
+        },
+        "development": {
+          "buildTarget": "x-lcdp-platform:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "x-lcdp-platform:build"
+      }
+    }
+  }
+}

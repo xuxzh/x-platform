@@ -1,0 +1,8 @@
+{
+  "name": "x-lcdp-platform-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/x-lcdp-platform-e2e/src",
+  "targets": {},
+  "implicitDependencies": ["x-lcdp-platform"]
+}

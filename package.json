@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start:pr": "nx serve x-product-platform"
+    "start:pr": "nx serve x-product-platform",
+    "start:lcdp": "nx serve x-lcdp-platform"
   },
   "private": true,
   "devDependencies": {
