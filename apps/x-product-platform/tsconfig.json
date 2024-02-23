@@ -8,7 +8,15 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@core": ["apps/x-product-platform/src/app/core"],
+      "@data": ["apps/x-product-platform/src/app/data"],
+      "@layout": ["apps/x-product-platform/src/app/layout"],
+      "@model": ["apps/x-product-platform/src/app/model"],
+      "@pages": ["apps/x-product-platform/src/app/pages"],
+      "@shared": ["apps/x-product-platform/src/app/shared"]
+    }
   },
   "files": [],
   "include": [],
