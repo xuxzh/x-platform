@@ -1,1 +1,1 @@
-export * from './main-frame/main-frame.component';
+export * from './main-frame';
