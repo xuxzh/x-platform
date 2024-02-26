@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div class="login size-full flex items-center justify-center">
+  <form [formGroup]="loginForm">
+    <p>
+      <mat-form-field>
+        <mat-label>用户编码</mat-label>
+        <input
+          matInput
+          formControlName="UserCode"
+          placeholder="请输入用户编码"
+        />
+        <mat-icon matSuffix>person</mat-icon>
+        <!-- <mat-hint>用户编码一般为英文+数字组成</mat-hint> -->
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>密码</mat-label>
+        <input matInput formControlName="Password" placeholder="请输入密码" />
+        <mat-icon matSuffix>password</mat-icon>
+      </mat-form-field>
+    </p>
+    <p class="text-center">
+      <button class="w-full" mat-raised-button color="primary">登录</button>
+    </p>
+  </form>
+</div>
