@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -11,12 +11,18 @@ import {
   Validators,
 } from '@angular/forms';
 
+import { LoginDto, RhSafeAny } from '@model';
+import { CoreModule } from '@core';
+import { LoginService } from './login.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'xp-login',
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
+    CoreModule,
     MatIconModule,
     MatInputModule,
     MatFormFieldModule,
@@ -24,13 +30,39 @@ import {
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.less',
+  providers: [LoginService],
 })
 export class LoginComponent {
   loginForm: FormGroup;
-  constructor(private fb: FormBuilder) {
+  pwdIcon = 'visibility_off';
+  pwdInputType = 'password';
+  operator = inject(LoginService);
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       UserCode: [null, [Validators.required]],
       Password: [null, [Validators.required]],
     });
+  }
+
+  login(value: LoginDto) {
+    this.operator.login(value).subscribe((result) => {
+      if (result.accessToken && result.refreshToken) {
+        this.router.navigate(['/main/home']).catch((error: RhSafeAny) => {
+          console.error(
+            `跳转到主页发生错误:${error?.message ? error.message : ''}`
+          );
+        });
+      }
+    });
+  }
+
+  changePwdInput() {
+    if (this.pwdIcon === 'visibility_off') {
+      this.pwdInputType = 'text';
+      this.pwdIcon = 'visibility';
+    } else {
+      this.pwdInputType = 'password';
+      this.pwdIcon = 'visibility_off';
+    }
   }
 }

@@ -1,5 +1,5 @@
-<div class="login size-full flex items-center justify-center">
-  <form [formGroup]="loginForm">
+<div class="login size-full flex items-center justify-center bg-cyan-600">
+  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
     <p>
       <mat-form-field>
         <mat-label>用户编码</mat-label>
@@ -15,12 +15,21 @@
     <p>
       <mat-form-field>
         <mat-label>密码</mat-label>
-        <input matInput formControlName="Password" placeholder="请输入密码" />
-        <mat-icon matSuffix>password</mat-icon>
+        <input
+          matInput
+          formControlName="Password"
+          [type]="pwdInputType"
+          placeholder="请输入密码"
+        />
+        <mat-icon class="cursor-pointer" matSuffix (click)="changePwdInput()">{{
+          pwdIcon
+        }}</mat-icon>
       </mat-form-field>
     </p>
     <p class="text-center">
-      <button class="w-full" mat-raised-button color="primary">登录</button>
+      <button class="w-full" mat-raised-button color="primary" type="submit">
+        登录
+      </button>
     </p>
   </form>
 </div>
