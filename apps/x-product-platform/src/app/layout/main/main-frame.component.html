@@ -1,2 +1,20 @@
-<p>main-frame works!</p>
-<router-outlet />
+<main class="size-full flex">
+  <section class="hidden sm:block basis-64 grow-0 shrink-0">
+    <div class="text-xl">测试平台</div>
+    <div>
+      @for (menu of menuDatas; track menu.name) {
+      <div class="cursor-pointer" (click)="navigate(menu.name)">
+        {{ menu.displayName }}
+      </div>
+      }
+    </div>
+  </section>
+  <section class="flex-auto">
+    <div>
+      <p>这是标题栏</p>
+    </div>
+    <div>
+      <router-outlet />
+    </div>
+  </section>
+</main>

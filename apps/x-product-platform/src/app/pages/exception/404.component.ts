@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'xp-exception-404',
   standalone: true,
   imports: [CommonModule],
-  template: ` <span></span> `,
+  template: ` <span>页面不存在，请检查后重试</span> `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Exception404Component {}

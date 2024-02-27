@@ -1,1 +1,1 @@
-export default void 0;
+export * from './user-manage/user-manage.component';

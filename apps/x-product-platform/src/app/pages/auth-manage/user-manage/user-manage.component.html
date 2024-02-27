@@ -1,0 +1,20 @@
+<div>
+  <form
+    [formGroup]="userQueryForm"
+    (ngSubmit)="searchUser(userQueryForm.value)"
+  >
+    <mat-form-field>
+      <mat-label>用户编码</mat-label>
+      <input matInput formControlName="UserCode" placeholder="请输入用户编码" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>用户名称</mat-label>
+      <input matInput formControlName="UserName" placeholder="请输入用户名称" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">
+      <mat-icon class="cursor-pointer" matSuffix type="submit">search</mat-icon>
+      搜索
+    </button>
+  </form>
+  <table></table>
+</div>
