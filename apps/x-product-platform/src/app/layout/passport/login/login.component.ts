@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 
 import { LoginDto, RhSafeAny } from '@model';
-import { CoreModule } from '@core';
+import { AuthService, CoreModule } from '@core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 
@@ -37,6 +37,7 @@ export class LoginComponent {
   pwdIcon = 'visibility_off';
   pwdInputType = 'password';
   operator = inject(LoginService);
+  authSer = inject(AuthService);
   constructor(private fb: FormBuilder, private router: Router) {
     this.loginForm = this.fb.group({
       UserCode: [null, [Validators.required]],
@@ -47,6 +48,9 @@ export class LoginComponent {
   login(value: LoginDto) {
     this.operator.login(value).subscribe((result) => {
       if (result.accessToken && result.refreshToken) {
+        // 存储token信息
+        this.authSer.accessToken.set(result.accessToken);
+        this.authSer.refreshToken.set(result.refreshToken);
         this.router.navigate(['/main/home']).catch((error: RhSafeAny) => {
           console.error(
             `跳转到主页发生错误:${error?.message ? error.message : ''}`
