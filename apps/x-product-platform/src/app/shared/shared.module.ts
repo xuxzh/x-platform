@@ -1,17 +1,7 @@
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { ReactiveFormsModule } from '@angular/forms';
+import { RhSafeAny } from '@model';
 
-const modules = [
-  ReactiveFormsModule,
-  MatIconModule,
-  MatInputModule,
-  MatFormFieldModule,
-  MatButtonModule,
-];
+const modules: RhSafeAny[] = [];
 
 @NgModule({
   imports: [...modules],

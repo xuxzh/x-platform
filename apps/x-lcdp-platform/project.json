@@ -25,7 +25,6 @@
           "apps/x-lcdp-platform/src/assets"
         ],
         "styles": [
-          "@angular/material/prebuilt-themes/indigo-pink.css",
           "apps/x-lcdp-platform/src/styles.less"
         ],
         "scripts": []

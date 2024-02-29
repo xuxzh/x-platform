@@ -1,9 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
 import {
   FormBuilder,
   FormGroup,
@@ -19,15 +15,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'xp-login',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    CoreModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-  ],
+  imports: [CommonModule, ReactiveFormsModule, CoreModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.less',
   providers: [LoginService],
