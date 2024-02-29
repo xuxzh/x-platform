@@ -11,11 +11,12 @@ import { LoginDto, RhSafeAny } from '@model';
 import { AuthService, CoreModule } from '@core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
+import { SharedModule } from '@shared';
 
 @Component({
   selector: 'xp-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CoreModule],
+  imports: [CoreModule, SharedModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.less',
   providers: [LoginService],
