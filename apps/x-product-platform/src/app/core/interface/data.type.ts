@@ -49,3 +49,16 @@ export function XIsDate(value: RhSafeAny): value is string {
 export function XIsRegExp(value: RhSafeAny): value is string {
   return IsRegExp(value);
 }
+
+export function XIsEmpty(object: any) {
+  return (
+    XIsUndefined(object) ||
+    XIsNull(object) ||
+    object === '' ||
+    object.length === 0
+  );
+}
+
+export function XIsUndefined(value: any): value is undefined {
+  return typeof value === 'undefined';
+}

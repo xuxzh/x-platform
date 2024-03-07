@@ -7,5 +7,12 @@
       "^/api": ""
     },
     "changeOrigin": true
+  },
+  "/graphql": {
+    "target": "http://localhost:3000",
+    "logLevel": "debug",
+    "ws": true,
+    "changeOrigin": true,
+    "secure": false
   }
 }

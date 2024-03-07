@@ -8,9 +8,25 @@ import zh from '@angular/common/locales/zh';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { APOLLO_OPTIONS, Apollo } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { CreateApollo } from './graphql.config';
 
 registerLocaleData(zh);
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(appRoutes), provideAnimationsAsync(), provideNzI18n(zh_CN), importProvidersFrom(FormsModule), importProvidersFrom(HttpClientModule), provideAnimations()],
+  providers: [
+    provideRouter(appRoutes),
+    provideAnimationsAsync(),
+    provideNzI18n(zh_CN),
+    importProvidersFrom(FormsModule),
+    importProvidersFrom(HttpClientModule),
+    provideAnimations(),
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: CreateApollo,
+      deps: [HttpLink],
+    },
+    Apollo,
+  ],
 };

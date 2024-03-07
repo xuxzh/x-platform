@@ -5,6 +5,9 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 const modules = [
   CommonModule,
@@ -13,6 +16,9 @@ const modules = [
   NzFormModule,
   NzButtonModule,
   NzInputModule,
+  NzTableModule,
+  NzDividerModule,
+  NzDropDownModule,
 ];
 
 @NgModule({

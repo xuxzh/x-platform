@@ -1,10 +1,37 @@
-<div>
+<div class="size-full">
   <form
+    class="my-4"
     nz-form
     [formGroup]="userQueryForm"
-    (ngSubmit)="searchUser(userQueryForm.value)"
+    (ngSubmit)="action()"
+    nzLayout="inline"
   >
-    <nz-form-item> </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input formControlName="UserCode" placeholder="用户编码" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input formControlName="UserName" placeholder="用户名称" />
+      </nz-form-control>
+    </nz-form-item>
+    <button nz-button nzType="primary">搜索</button>
   </form>
-  <table></table>
+  <nz-table #nzTable [nzData]="userDataset" [nzPageSize]="10">
+    <thead>
+      <tr>
+        <th>用户编码</th>
+        <th>用户名称</th>
+        <th>说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of nzTable.data">
+        <td>{{ item.UserCode }}</td>
+        <td>{{ item.UserName }}</td>
+        <td>{{ item.Remark }}</td>
+      </tr>
+    </tbody>
+  </nz-table>
 </div>
