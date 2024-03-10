@@ -9,7 +9,7 @@ import { cloneDeep } from 'lodash-es';
 export class UserManageService {
   apiConfigSer = inject(ApiConfigService);
   apollo = inject(Apollo);
-  user(id: number) {
+  getUser(id: number) {
     return this.apollo.query<{ user: UserDto }>({
       variables: { id },
       query: gql`
@@ -24,12 +24,12 @@ export class UserManageService {
     });
   }
 
-  users(input: UserPaginationInput): Observable<BasePagination<UserDto>> {
+  getUsers(input: UserPaginationInput): Observable<BasePagination<UserDto>> {
     return this.apollo
       .query<{ users: BasePagination<UserDto> }>({
         variables: input,
         query: gql`
-          query Users(
+          query users(
             $skip: Int
             $take: Int
             $where: UserWhereInput
@@ -41,11 +41,33 @@ export class UserManageService {
                 Id
                 UserCode
                 UserName
+                Remark
               }
             }
           }
         `,
       })
       .pipe(map((x) => cloneDeep(x.data?.users)));
+  }
+
+  createUser(user: UserDto) {
+    return this.apiConfigSer.post(
+      { controller: 'user', interfaceName: '' },
+      user
+    );
+  }
+
+  updateUser(user: Partial<UserDto>) {
+    return this.apiConfigSer.put(
+      { controller: 'user', interfaceName: '' },
+      user
+    );
+  }
+
+  deleteUser(user: UserDto) {
+    return this.apiConfigSer.delete(
+      { controller: 'user', interfaceName: '' },
+      user
+    );
   }
 }

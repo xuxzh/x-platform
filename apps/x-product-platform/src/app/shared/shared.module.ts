@@ -8,6 +8,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 const modules = [
   CommonModule,
@@ -19,6 +21,8 @@ const modules = [
   NzTableModule,
   NzDividerModule,
   NzDropDownModule,
+  NzCardModule,
+  NzModalModule,
 ];
 
 @NgModule({

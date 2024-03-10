@@ -1,12 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserDto } from '@model';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { RhSafeAny, UserDto } from '@model';
 import { SharedModule } from '@shared';
 import { UserWhereInput } from './user-where';
 import { XIsEmpty, BaseOrder, BasePagination, CoreModule } from '@core';
 import { UserManageService } from './user-manage.service';
 import { delay, finalize, tap } from 'rxjs';
+import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_INDEX } from '@data';
 
 @Component({
   selector: 'xp-user-manage',
@@ -18,16 +19,22 @@ import { delay, finalize, tap } from 'rxjs';
 })
 export class UserManageComponent implements OnInit {
   userQueryForm!: FormGroup;
-
+  userForm!: FormGroup;
+  userDto = {} as UserDto;
   userDataset: UserDto[] = [];
 
-  index = 1;
   total = 0;
-  size = 10;
+
+  index = DEFAULT_PAGE_INDEX;
+  size = DEFAULT_PAGE_SIZE;
   tableLoading = false;
 
-  fb = inject(FormBuilder);
+  isShowModal = false;
+  title = '新建用户';
+  mode: 'edit' | 'add' = 'add';
+  saveLoading = false;
 
+  fb = inject(FormBuilder);
   userSer = inject(UserManageService);
 
   ngOnInit(): void {
@@ -35,23 +42,75 @@ export class UserManageComponent implements OnInit {
       UserCode: [null],
       UserName: [null],
     });
+    this.action('search');
+
+    this.userForm = this.fb.group({
+      UserCode: [this.userDto.UserCode, [Validators.required]],
+      UserName: [this.userDto.UserName, [Validators.required]],
+      Remark: [this.userDto.Remark],
+    });
   }
 
-  action() {
-    this.tableLoading = true;
-    this.userSer
-      .users(this.setParams(this.index, this.size))
-      .pipe(
-        delay(300),
-        tap((data) => this.resultConvert(data)),
-        finalize(() => {
-          this.tableLoading = false;
-        })
-      )
-      .subscribe();
+  action(type: 'search' | 'edit' | 'delete' | 'reset') {
+    switch (type) {
+      case 'search': {
+        this.tableLoading = true;
+        const userQueryDto = this.userQueryForm.value;
+        this.userSer
+          .getUsers(this.setParams(this.index, this.size, userQueryDto))
+          .pipe(
+            delay(300),
+            tap((data) => this.resultConvert(data)),
+            finalize(() => {
+              this.tableLoading = false;
+            })
+          )
+          .subscribe();
+        break;
+      }
+      case 'reset': {
+        this.userQueryForm.reset();
+        this.action('search');
+        break;
+      }
+      case 'edit': {
+        if (this.userForm.invalid) {
+          return;
+        }
+        this.userDto = { ...this.userDto, ...(this.userForm.value || {}) };
+        this.saveLoading = true;
+        if (this.mode === 'add') {
+          this.userSer.createUser(this.userDto).subscribe((result) => {
+            console.log(result);
+          });
+        }
+        if (this.mode === 'edit') {
+          delete (this.userDto as RhSafeAny)['__typename'];
+          this.userSer.updateUser(this.userDto).subscribe((result) => {
+            console.log(result);
+          });
+        }
+        break;
+      }
+      case 'delete': {
+        break;
+      }
+    }
   }
 
-  private setParams(index: number, size: number) {
+  openModal(data?: UserDto) {
+    this.isShowModal = true;
+    this.mode = data ? 'edit' : 'add';
+    this.title = this.mode === 'add' ? '新建用户' : '编辑用户';
+    this.userDto = data as UserDto;
+    this.userForm.reset(data);
+  }
+
+  closeModal() {
+    this.isShowModal = false;
+  }
+
+  private setParams(index: number, size: number, user: UserDto) {
     const orderBy: BaseOrder[] = [];
     const where: UserWhereInput = {};
     const { UserCode, UserName } = this.userQueryForm.value;

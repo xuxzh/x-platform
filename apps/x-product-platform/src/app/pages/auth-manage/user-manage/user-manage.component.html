@@ -1,37 +1,142 @@
-<div class="size-full">
-  <form
-    class="my-4"
-    nz-form
-    [formGroup]="userQueryForm"
-    (ngSubmit)="action()"
-    nzLayout="inline"
-  >
-    <nz-form-item>
-      <nz-form-control>
-        <input nz-input formControlName="UserCode" placeholder="用户编码" />
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control>
-        <input nz-input formControlName="UserName" placeholder="用户名称" />
-      </nz-form-control>
-    </nz-form-item>
-    <button nz-button nzType="primary">搜索</button>
-  </form>
-  <nz-table #nzTable [nzData]="userDataset" [nzPageSize]="10">
-    <thead>
-      <tr>
-        <th>用户编码</th>
-        <th>用户名称</th>
-        <th>说明</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of nzTable.data">
-        <td>{{ item.UserCode }}</td>
-        <td>{{ item.UserName }}</td>
-        <td>{{ item.Remark }}</td>
-      </tr>
-    </tbody>
-  </nz-table>
+<div class="size-full space-y-4">
+  <nz-card>
+    <form
+      class="my-4"
+      nz-form
+      [formGroup]="userQueryForm"
+      (ngSubmit)="action('search')"
+      nzLayout="inline"
+    >
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input formControlName="UserCode" placeholder="用户编码" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input formControlName="UserName" placeholder="用户名称" />
+        </nz-form-control>
+      </nz-form-item>
+      <button nz-button nzType="primary" [nzLoading]="tableLoading">
+        <span nz-icon nzType="search" nzTheme="outline"></span>
+        搜索
+      </button>
+      <button
+        class="ml-4"
+        nz-button
+        nzType="default"
+        type="button"
+        (click)="action('reset')"
+      >
+        <span nz-icon nzType="reload" nzTheme="outline"></span>
+        重置
+      </button>
+    </form>
+  </nz-card>
+  <nz-card>
+    <nz-table
+      #nzTable
+      [nzData]="userDataset"
+      [nzPageSize]="10"
+      [nzLoading]="tableLoading"
+    >
+      <thead>
+        <tr>
+          <th>用户编码</th>
+          <th>用户名称</th>
+          <th>备注</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of nzTable.data">
+          <td>{{ item.UserCode }}</td>
+          <td>{{ item.UserName }}</td>
+          <td>{{ item.Remark }}</td>
+          <td>
+            <button
+              nz-button
+              nzType="link"
+              type="button"
+              (click)="openModal(item)"
+            >
+              <span nz-icon nzType="edit"></span>
+            </button>
+            <button
+              nz-button
+              nzType="link"
+              type="button"
+              nzDanger
+              (click)="action('delete')"
+            >
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
 </div>
+
+<nz-modal
+  [nzVisible]="isShowModal"
+  [nzTitle]="title"
+  [nzOkText]="null"
+  [nzCancelText]="null"
+  nzMaskClosable="false"
+  (nzOnCancel)="closeModal()"
+  [nzWidth]="560"
+>
+  <ng-container *nzModalContent>
+    <form
+      nz-form
+      [formGroup]="userForm"
+      nzLayout="horizontal"
+      (ngSubmit)="action('edit')"
+    >
+      <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzRequired>用户编码</nz-form-label>
+        <nz-form-control [nzSpan]="16" nzErrorTip="请输入用户编码">
+          <input
+            nz-input
+            formControlName="UserCode"
+            placeholder="用户编码"
+            [readonly]="mode === 'edit'"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="4" nzRequired>用户名称</nz-form-label>
+        <nz-form-control [nzSpan]="16" nzErrorTip="请输入用户名称">
+          <input nz-input formControlName="UserName" placeholder="用户名称" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="4">备注</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <textarea
+            nz-input
+            formControlName="Remark"
+            [nzAutosize]="true"
+            [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+            placeholder="备注"
+          ></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzOffset]="4">
+          <button nz-button nzType="primary" [disabled]="userForm.invalid">
+            <i nz-icon nzType="save" nzTheme="outline"></i>
+            保存
+          </button>
+        </nz-form-control>
+        <nz-form-control [nzOffset]="2">
+          <button nz-button nzType="default" type="button">
+            <i nz-icon nzType="reload" nzTheme="outline"></i>
+            清空
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>

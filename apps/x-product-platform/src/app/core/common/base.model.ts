@@ -6,5 +6,5 @@ export class BaseAudit {
 }
 
 export class BaseModel extends BaseAudit {
-  Id!: string;
+  Id!: number;
 }
