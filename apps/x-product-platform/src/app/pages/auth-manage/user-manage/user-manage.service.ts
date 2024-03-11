@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { ApiConfigService, BasePagination } from '@core';
-import { UserDto } from '@model';
+import { UserDto, IResponseDto } from '@model';
 import { Apollo, gql } from 'apollo-angular';
 import { UserPaginationInput } from './user-pagination.input';
 import { Observable, map } from 'rxjs';
@@ -57,14 +57,14 @@ export class UserManageService {
     );
   }
 
-  updateUser(user: Partial<UserDto>) {
+  updateUser(user: Partial<UserDto>): Observable<IResponseDto<UserDto>> {
     return this.apiConfigSer.put(
       { controller: 'user', interfaceName: '' },
       user
     );
   }
 
-  deleteUser(user: UserDto) {
+  deleteUser(user: UserDto): Observable<IResponseDto<UserDto>> {
     return this.apiConfigSer.delete(
       { controller: 'user', interfaceName: '' },
       user

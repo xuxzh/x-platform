@@ -1,4 +1,4 @@
-import { RhSafeAny } from '../../model/any.model';
+import { RhSafeAny } from '@model';
 
 // 类型判断
 export const XIsType = (type: string) => (object: RhSafeAny) =>
@@ -50,7 +50,7 @@ export function XIsRegExp(value: RhSafeAny): value is string {
   return IsRegExp(value);
 }
 
-export function XIsEmpty(object: any) {
+export function XIsEmpty(object: RhSafeAny) {
   return (
     XIsUndefined(object) ||
     XIsNull(object) ||
@@ -59,6 +59,6 @@ export function XIsEmpty(object: any) {
   );
 }
 
-export function XIsUndefined(value: any): value is undefined {
+export function XIsUndefined(value: RhSafeAny): value is undefined {
   return typeof value === 'undefined';
 }

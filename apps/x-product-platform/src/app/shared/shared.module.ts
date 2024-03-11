@@ -10,6 +10,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 const modules = [
   CommonModule,
@@ -23,6 +24,7 @@ const modules = [
   NzDropDownModule,
   NzCardModule,
   NzModalModule,
+  NzMessageModule,
 ];
 
 @NgModule({

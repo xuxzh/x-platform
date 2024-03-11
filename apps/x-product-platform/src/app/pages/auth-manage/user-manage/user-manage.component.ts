@@ -4,7 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RhSafeAny, UserDto } from '@model';
 import { SharedModule } from '@shared';
 import { UserWhereInput } from './user-where';
-import { XIsEmpty, BaseOrder, BasePagination, CoreModule } from '@core';
+import {
+  XIsEmpty,
+  BaseOrder,
+  BasePagination,
+  CoreModule,
+  MsgHelperService,
+} from '@core';
 import { UserManageService } from './user-manage.service';
 import { delay, finalize, tap } from 'rxjs';
 import { DEFAULT_PAGE_SIZE, DEFAULT_PAGE_INDEX } from '@data';
@@ -36,6 +42,7 @@ export class UserManageComponent implements OnInit {
 
   fb = inject(FormBuilder);
   userSer = inject(UserManageService);
+  msgSer = inject(MsgHelperService);
 
   ngOnInit(): void {
     this.userQueryForm = this.fb.group({
@@ -51,7 +58,7 @@ export class UserManageComponent implements OnInit {
     });
   }
 
-  action(type: 'search' | 'edit' | 'delete' | 'reset') {
+  action(type: 'search' | 'edit' | 'delete' | 'reset', user?: UserDto) {
     switch (type) {
       case 'search': {
         this.tableLoading = true;
@@ -87,12 +94,30 @@ export class UserManageComponent implements OnInit {
         if (this.mode === 'edit') {
           delete (this.userDto as RhSafeAny)['__typename'];
           this.userSer.updateUser(this.userDto).subscribe((result) => {
-            console.log(result);
+            if (result.success) {
+              this.closeModal();
+              this.action('search');
+              this.msgSer.showSuccessMsg(`编辑用户成功！`);
+            } else {
+              this.msgSer.showInfoMsg(`编辑用户失败：${result.message}`);
+            }
           });
         }
         break;
       }
       case 'delete': {
+        if (!user?.Id) {
+          this.msgSer.showWarningMsg(`请传入要删除的用户Id`);
+          return;
+        }
+        this.userSer.deleteUser(user).subscribe((result) => {
+          if (result.success) {
+            this.msgSer.showSuccessMsg(`删除用户成功！`);
+            this.action('search');
+          } else {
+            this.msgSer.showWarningMsg(`删除用户失败：${result.message}`);
+          }
+        });
         break;
       }
     }

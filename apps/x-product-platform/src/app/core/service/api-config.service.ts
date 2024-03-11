@@ -37,10 +37,12 @@ export class ApiConfigService {
     );
   }
 
-  delete(interfaceDto: InterfaceDto, body: { Id: number }) {
+  delete(
+    interfaceDto: InterfaceDto,
+    body: { Id: number }
+  ): Observable<RhSafeAny> {
     return this.http.delete(
-      `/${this.globalPrefix}/${interfaceDto.controller}/${interfaceDto.interfaceName}`,
-      { body }
+      `/${this.globalPrefix}/${interfaceDto.controller}/${interfaceDto.interfaceName}/${body.Id}`
     );
   }
 }

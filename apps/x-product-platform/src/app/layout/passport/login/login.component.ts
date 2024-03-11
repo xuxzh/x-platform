@@ -1,11 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { LoginDto, RhSafeAny } from '@model';
 import { AuthService, CoreModule } from '@core';
@@ -36,10 +30,11 @@ export class LoginComponent {
 
   login(value: LoginDto) {
     this.operator.login(value).subscribe((result) => {
-      if (result.accessToken && result.refreshToken) {
+      if (result.success) {
+        const data = result.data;
         // 存储token信息
-        this.authSer.accessToken.set(result.accessToken);
-        this.authSer.refreshToken.set(result.refreshToken);
+        this.authSer.accessToken.set(data.accessToken);
+        this.authSer.refreshToken.set(data.refreshToken);
         this.router.navigate(['/main/home']).catch((error: RhSafeAny) => {
           console.error(
             `跳转到主页发生错误:${error?.message ? error.message : ''}`

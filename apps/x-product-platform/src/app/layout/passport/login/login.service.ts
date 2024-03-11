@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiConfigService } from '@core';
-import { LoginDto, InterfaceDto, IToken } from '@model';
+import { LoginDto, InterfaceDto, IToken, IResponseDto } from '@model';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -9,7 +9,7 @@ export class LoginService {
     //
   }
 
-  login(value: LoginDto): Observable<IToken> {
+  login(value: LoginDto): Observable<IResponseDto<IToken>> {
     const loginInterface: InterfaceDto = {
       controller: 'auth',
       interfaceName: 'login',

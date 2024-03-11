@@ -33,12 +33,18 @@
       </button>
     </form>
   </nz-card>
+  <div>
+    <button nz-button nzType="default" type="button">
+      <i nz-icon nzType="plus-circle" nzTheme="outline"></i>新增
+    </button>
+  </div>
   <nz-card>
     <nz-table
       #nzTable
       [nzData]="userDataset"
       [nzPageSize]="10"
       [nzLoading]="tableLoading"
+      nzBordered="true"
     >
       <thead>
         <tr>
@@ -67,7 +73,7 @@
               nzType="link"
               type="button"
               nzDanger
-              (click)="action('delete')"
+              (click)="action('delete', item)"
             >
               <span nz-icon nzType="delete"></span>
             </button>
