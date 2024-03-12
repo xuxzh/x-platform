@@ -6,11 +6,12 @@ import { zh_CN, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { APOLLO_OPTIONS, Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { CreateApollo } from './graphql.config';
+import { ErrorHandlerInterceptor } from '@core';
 
 registerLocaleData(zh);
 
@@ -26,6 +27,11 @@ export const appConfig: ApplicationConfig = {
       provide: APOLLO_OPTIONS,
       useFactory: CreateApollo,
       deps: [HttpLink],
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi: true,
     },
     Apollo,
   ],

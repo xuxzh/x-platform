@@ -34,7 +34,7 @@
     </form>
   </nz-card>
   <div>
-    <button nz-button nzType="default" type="button">
+    <button nz-button nzType="default" type="button" (click)="openModal()">
       <i nz-icon nzType="plus-circle" nzTheme="outline"></i>新增
     </button>
   </div>
@@ -137,9 +137,15 @@
           </button>
         </nz-form-control>
         <nz-form-control [nzOffset]="2">
-          <button nz-button nzType="default" type="button">
+          <button
+            nz-button
+            nzType="default"
+            type="button"
+            (click)="userForm.reset()"
+            disabled="mode==='edit'"
+          >
             <i nz-icon nzType="reload" nzTheme="outline"></i>
-            清空
+            重置
           </button>
         </nz-form-control>
       </nz-form-item>

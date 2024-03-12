@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RhSafeAny, UserDto } from '@model';
@@ -88,7 +88,13 @@ export class UserManageComponent implements OnInit {
         this.saveLoading = true;
         if (this.mode === 'add') {
           this.userSer.createUser(this.userDto).subscribe((result) => {
-            console.log(result);
+            if (result.success) {
+              this.userDto = {} as UserDto;
+              this.userForm.reset();
+              this.msgSer.showSuccessMsg(`新建用户成功！`);
+            } else {
+              this.msgSer.showInfoMsg(`新建用户失败：${result.message}`);
+            }
           });
         }
         if (this.mode === 'edit') {
@@ -133,6 +139,7 @@ export class UserManageComponent implements OnInit {
 
   closeModal() {
     this.isShowModal = false;
+    this.action('search');
   }
 
   private setParams(index: number, size: number, user: UserDto) {
