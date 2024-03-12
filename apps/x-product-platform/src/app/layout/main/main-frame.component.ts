@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
-import { DisplayDto } from '@model';
+import { IMenuDto } from '@model';
 
 @Component({
   selector: 'xp-main-frame',
@@ -11,16 +11,30 @@ import { DisplayDto } from '@model';
   styleUrl: './main-frame.component.less',
 })
 export class MainFrameComponent {
-  menuDatas: DisplayDto[] = [
+  menuDatas: IMenuDto[] = [
     {
-      name: 'UserManage',
-      displayName: '用户管理',
+      MenuCode: 'AuthorityManage',
+      MenuName: '授权管理',
+      Children: [
+        {
+          MenuCode: 'UserManage',
+          MenuName: '用户管理',
+        },
+        {
+          MenuCode: 'MenuManage',
+          MenuName: '菜单管理',
+        },
+        {
+          MenuCode: 'RoleManage',
+          MenuName: '角色管理',
+        },
+      ],
     },
   ];
 
   router = inject(Router);
 
-  navigate(menu: string) {
-    this.router.navigate([`/main/${menu}`]);
+  navigate(menu: IMenuDto) {
+    this.router.navigate([`/main/${menu.MenuCode}`]);
   }
 }

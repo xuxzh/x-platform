@@ -4,11 +4,27 @@
   >
     <div class="text-xl">测试平台</div>
     <div>
-      @for (menu of menuDatas; track menu.name) {
-      <div class="cursor-pointer" (click)="navigate(menu.name)">
-        {{ menu.displayName }}
-      </div>
-      }
+      <ul>
+        <ng-container
+          *ngTemplateOutlet="menuTpl; context: { $implicit: menuDatas }"
+        ></ng-container>
+      </ul>
+      <ng-template #menuTpl let-menus>
+        @for (menu of menus; track menu.MenuCode) { @if(!menu.Children){
+        <li class="cursor-pointer" (click)="navigate(menu)">
+          <span>{{ menu.MenuName }}</span>
+        </li>
+        }@else {
+        <li>
+          <span>{{ menu.MenuName }}</span>
+          <ul class="ml-2">
+            <ng-container
+              *ngTemplateOutlet="menuTpl; context: { $implicit: menu.Children }"
+            ></ng-container>
+          </ul>
+        </li>
+        } }
+      </ng-template>
     </div>
   </section>
   <section class="flex-auto border border-orange-500 p-4">
