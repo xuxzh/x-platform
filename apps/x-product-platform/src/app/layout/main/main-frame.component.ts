@@ -28,6 +28,14 @@ export class MainFrameComponent {
           MenuCode: 'RoleManage',
           MenuName: '角色管理',
         },
+        {
+          MenuCode: 'FunctionManage',
+          MenuName: '功能管理',
+        },
+        {
+          MenuCode: 'RoleBind',
+          MenuName: '角色绑定',
+        },
       ],
     },
   ];

@@ -1,6 +1,10 @@
 import {
   Exception404Component,
+  FunctionManageComponent,
   HomeComponent,
+  MenuManageComponent,
+  RoleBindComponent,
+  RoleManageComponent,
   UserManageComponent,
 } from '@pages';
 import { NgModule } from '@angular/core';
@@ -19,6 +23,22 @@ const routes: Routes = [
       {
         path: 'UserManage',
         component: UserManageComponent,
+      },
+      {
+        path: 'MenuManage',
+        component: MenuManageComponent,
+      },
+      {
+        path: 'RoleBind',
+        component: RoleBindComponent,
+      },
+      {
+        path: 'RoleManage',
+        component: RoleManageComponent,
+      },
+      {
+        path: 'FunctionManage',
+        component: FunctionManageComponent,
       },
       {
         path: '',
