@@ -26,6 +26,7 @@
     "@nx/jest": "18.0.4",
     "@nx/js": "18.0.4",
     "@nx/playwright": "18.0.4",
+    "@nx/react": "^18.2.2",
     "@nx/workspace": "18.0.4",
     "@playwright/test": "^1.36.0",
     "@schematics/angular": "~17.1.0",
