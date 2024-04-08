@@ -1,0 +1,29 @@
+{
+  "name": "x-base",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/x-base",
+  "prefix": "x",
+  "tags": [],
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:package",
+      "outputs": [
+        "{workspaceRoot}/dist/{projectRoot}"
+      ],
+      "options": {
+        "project": "libs/x-base/ng-package.json",
+        "tailwindConfig": "libs/x-base/tailwind.config.js"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/x-base/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/x-base/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    }
+  }
+}
