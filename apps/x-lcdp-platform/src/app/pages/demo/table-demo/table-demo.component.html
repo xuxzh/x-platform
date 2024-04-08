@@ -1,0 +1,35 @@
+<button nz-button nzType="primary" type="button" (click)="updateDataset()">
+  <span nz-icon nzType="save" nzTheme="outline"></span>
+  更新值
+</button>
+<button nz-button nzType="primary" type="button" nzDanger (click)="reset()">
+  <span nz-icon nzType="reloda" nzTheme="outline"></span>
+  重置
+</button>
+
+<nz-table #nzTable [nzData]="data" nzFrontPagination="false">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(item of nzTable.data;track item.id){
+    <tr>
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.address }}</td>
+    </tr>
+    }
+    <!-- <tr *ngFor="let item of nzTable.data">
+      <td>{{ item.id }}</td>
+      <td>{{ item.title }}</td>
+      <td>{{ item.price }}</td>
+      <td>{{ item.address }}</td>
+    </tr> -->
+  </tbody>
+</nz-table>

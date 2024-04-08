@@ -30,6 +30,13 @@ export const appRoutes: Route[] = [
       ),
   },
   {
+    path: 'demo',
+    loadChildren: () =>
+      import('./routes/demo/demo-routing.module').then(
+        (m) => m.DemoRoutingModule
+      ),
+  },
+  {
     path: '',
     redirectTo: 'designer',
     pathMatch: 'full',

@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@x/base": ["libs/x-base/src/index.ts"]
+      "@x/base/*": ["libs/x-base/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

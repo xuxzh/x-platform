@@ -22,9 +22,15 @@
         "inlineStyleLanguage": "less",
         "assets": [
           "apps/x-lcdp-platform/src/favicon.ico",
-          "apps/x-lcdp-platform/src/assets"
+          "apps/x-lcdp-platform/src/assets",
+          {
+            "glob": "**/*",
+            "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+            "output": "/assets/"
+          }
         ],
         "styles": [
+          "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
           "apps/x-lcdp-platform/src/styles.less"
         ],
         "scripts": []

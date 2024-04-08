@@ -7,7 +7,11 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "rootDir": ".",
+    "paths": {
+      "@x/base/*": ["libs/x-base/*"]
+    }
   },
   "files": [],
   "include": [],

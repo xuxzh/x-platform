@@ -1,3 +1,4 @@
+export * from './demo';
 export * from './designer';
 export * from './exception';
 export * from './home';

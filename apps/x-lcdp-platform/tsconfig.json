@@ -15,7 +15,8 @@
       "@layout": ["apps/x-lcdp-platform/src/app/layout"],
       "@core": ["apps/x-lcdp-platform/src/app/core"],
       "@shared": ["apps/x-lcdp-platform/src/app/shared"],
-      "@pages": ["apps/x-lcdp-platform/src/app/pages"]
+      "@pages": ["apps/x-lcdp-platform/src/app/pages"],
+      "@x/base/*": ["libs/x-base/*"]
     }
   },
   "files": [],
