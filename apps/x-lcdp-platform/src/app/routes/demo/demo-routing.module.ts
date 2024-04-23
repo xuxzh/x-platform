@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TableDemoComponent } from '@pages';
+import { DirectiveDemoComponent, TableDemoComponent } from '@pages';
 
 const routes: Routes = [
   {
     path: 'table',
     component: TableDemoComponent,
+  },
+  {
+    path: 'directive',
+    component: DirectiveDemoComponent,
+  },
+  {
+    path: '',
+    redirectTo: 'directive',
+    pathMatch: 'full',
   },
 ];
 
