@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@x/base/*": ["libs/x-base/*"]
+      "@x/base/*": ["libs/x-base/*"],
+      "@x/lcdp": ["libs/x-lcdp/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
