@@ -38,7 +38,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: '',
-    redirectTo: 'demo',
+    redirectTo: 'designer',
     pathMatch: 'full',
   },
   {
