@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DesignerLayoutComponent } from '@layout';
-import { DesignerComponent } from '@pages';
+import { DesignerDesktopComponent } from '@pages';
 
 const routes: Routes = [
   {
@@ -9,12 +9,12 @@ const routes: Routes = [
     component: DesignerLayoutComponent,
     children: [
       {
-        path: 'index',
-        component: DesignerComponent,
+        path: 'desktop',
+        component: DesignerDesktopComponent,
       },
       {
         path: '',
-        redirectTo: 'index',
+        redirectTo: 'desktop',
         pathMatch: 'full',
       },
     ],

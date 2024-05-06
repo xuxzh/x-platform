@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@x/base/*": ["libs/x-base/*"],
-      "@x/lcdp": ["libs/x-lcdp/src/index.ts"]
+      "@x/lcdp": ["libs/x-lcdp/*"]
     }
   },
   "exclude": ["node_modules", "tmp"]

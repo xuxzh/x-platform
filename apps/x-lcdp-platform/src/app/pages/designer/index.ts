@@ -1,1 +1,1 @@
-export * from './designer.component';
+export * from './desktop/designer-desktop.component';

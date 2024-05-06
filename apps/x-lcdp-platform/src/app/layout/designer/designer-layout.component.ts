@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'xp-designer-layout',
   imports: [RouterOutlet],
   standalone: true,
-  template: ` <router-outlet /> `,
+  styleUrl: './designer-layout.component.less',
+  templateUrl: './designer-layout.component.html',
 })
 export class DesignerLayoutComponent {}
