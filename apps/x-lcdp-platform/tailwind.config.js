@@ -12,6 +12,7 @@ module.exports = {
   },
   plugins: [],
   corePlugins: {
+    /** 防止ng-zorro-antd图标和文字不对齐 */
     preflight: false
   },
 };

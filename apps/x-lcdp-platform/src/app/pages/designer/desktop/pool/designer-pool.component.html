@@ -1,0 +1,33 @@
+<nz-card
+  id="component-pool-card"
+  class="size-full"
+  nzSize="small"
+  [nzBodyStyle]="{ padding: '8px', overflow: 'auto' }"
+  [nzTitle]="cardTitleTpl"
+>
+  <ng-template #cardTitleTpl>
+    <span class="text-blue-500">
+      <span nz-icon nzType="appstore" nzTheme="outline"></span>
+      组件池
+    </span>
+  </ng-template>
+  <input
+    type="text"
+    style="width: 100%"
+    nz-input
+    [(ngModel)]="searchValue"
+    (ngModelChange)="searchValueChange($event)"
+    [placeholder]="'请输入组件名称'"
+  />
+  <nz-collapse>
+    <nz-collapse-panel
+      *ngFor="let item of collapseDataset"
+      [nzHeader]="item?.displayName"
+      [(nzActive)]="item.active"
+    >
+      <div class="size-full">
+        <x-nested-droplist-pool> </x-nested-droplist-pool>
+      </div>
+    </nz-collapse-panel>
+  </nz-collapse>
+</nz-card>

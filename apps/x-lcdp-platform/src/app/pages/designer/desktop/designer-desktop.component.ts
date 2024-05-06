@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DesignerConfigComponent } from './config/designer-config.component';
-import { DesignerPoolComponent } from './config/designer-pool.component';
+import { DesignerPoolComponent } from './pool/designer-pool.component';
 import { DesignerCanvasComponent } from './canvas/designer-canvas.component';
 
 /**
