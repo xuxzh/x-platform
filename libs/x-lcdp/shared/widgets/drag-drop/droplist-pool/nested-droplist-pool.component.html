@@ -1,1 +1,24 @@
-<p>nested-droplist-pool works!</p>
+<div
+  *ngIf="rhData"
+  class="drop-list size-full"
+  cdkDropList
+  [cdkDropListData]="rhData"
+  [cdkDropListConnectedTo]="dragDropSer.dropLists"
+  [cdkDropListEnterPredicate]="allowDropPredicate"
+  (cdkDropListDropped)="dropped($event)"
+>
+  @if(rhData.children?.length){ @for (item of rhData.children; track $index) {
+  <div
+    class="drag-item"
+    cdkDrag
+    [cdkDragData]="item"
+    (cdkDragMoved)="dragMoved($event)"
+    (cdkDragReleased)="dragReleased($event)"
+  >
+    <x-pool-item
+      [rhData]="$any(item)"
+      [rhCustomItemContentTpl]="rhCustomItemContentTpl"
+    ></x-pool-item>
+  </div>
+  } }
+</div>

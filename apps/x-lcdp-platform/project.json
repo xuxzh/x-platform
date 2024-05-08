@@ -12,7 +12,7 @@
         "{options.outputPath}"
       ],
       "options": {
-        "outputPath": "dist/apps/x-lcdp-platform",
+        "outputPath": "dist/apps/lcdp-site",
         "index": "apps/x-lcdp-platform/src/index.html",
         "browser": "apps/x-lcdp-platform/src/main.ts",
         "polyfills": [

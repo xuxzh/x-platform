@@ -5,8 +5,8 @@
   "scripts": {
     "start:pr": "nx serve x-product-platform",
     "start:lcdp": "nx serve x-lcdp-platform",
-    "build:pr": "nx build x-product-platform",
-    "build:lcdp": "nx build x-lcdp-platform",
+    "build-site:pr": "nx build x-product-platform",
+    "build-site:lcdp": "nx build x-lcdp-platform",
     "build-lib:base": "nx build x-base",
     "build-lib:lcdp": "nx build x-lcdp"
   },

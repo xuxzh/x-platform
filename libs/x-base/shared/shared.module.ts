@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { XAntdModule } from '@x/base/data';
 
 @NgModule({
-  imports: [...XAntdModule],
+  imports: [XAntdModule],
   declarations: [],
   providers: [],
-  exports: [CommonModule, ...XAntdModule],
+  exports: [CommonModule, XAntdModule],
 })
 export class XSharedModule {}

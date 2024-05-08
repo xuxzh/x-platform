@@ -4,9 +4,10 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NgModule } from '@angular/core';
 
 /** 常用antd模块 */
-const XAntdModule = [
+const antdModule = [
   NzButtonModule,
   NzIconModule,
   NzTableModule,
@@ -15,4 +16,10 @@ const XAntdModule = [
   NzInputModule,
 ];
 
-export { XAntdModule };
+@NgModule({
+  imports: [...antdModule],
+  exports: [...antdModule],
+})
+export class XAntdModule {}
+
+//  { XAntdModule };

@@ -23,10 +23,14 @@
     <nz-collapse-panel
       *ngFor="let item of collapseDataset"
       [nzHeader]="item?.displayName"
-      [(nzActive)]="item.active"
+      [(nzActive)]="item.expand"
     >
       <div class="size-full">
-        <x-nested-droplist-pool> </x-nested-droplist-pool>
+        <x-nested-droplist-pool
+          [rhData]="item"
+          (rhDragToDesigner)="onDragToDesigner($event)"
+        >
+        </x-nested-droplist-pool>
       </div>
     </nz-collapse-panel>
   </nz-collapse>

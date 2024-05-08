@@ -1,0 +1,12 @@
+<div [title]="rhData.description || rhData.displayName" class="item">
+  <ng-container
+    *ngIf="rhCustomItemContentTpl; else basicTpl"
+    [ngTemplateOutlet]="rhCustomItemContentTpl"
+    [ngTemplateOutletContext]="{ $implicit: rhData }"
+  ></ng-container>
+  <ng-template #basicTpl>
+    <!-- <rh-simple-icon [rhType]="icon"></rh-simple-icon> -->
+    <i nz-icon [nzType]="icon" nzTheme="outline"></i>
+    {{ rhData.displayName }}
+  </ng-template>
+</div>
