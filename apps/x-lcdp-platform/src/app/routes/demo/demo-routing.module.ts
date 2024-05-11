@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DirectiveDemoComponent, TableDemoComponent } from '@pages';
+import {
+  DirectiveDemoComponent,
+  TableDemoComponent,
+  OnlyDemoComponent,
+} from '@pages';
 
 const routes: Routes = [
   {
@@ -10,6 +14,10 @@ const routes: Routes = [
   {
     path: 'directive',
     component: DirectiveDemoComponent,
+  },
+  {
+    path: 'only',
+    component: OnlyDemoComponent,
   },
   {
     path: '',

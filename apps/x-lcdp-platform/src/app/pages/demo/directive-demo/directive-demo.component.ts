@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PwdDirective, DivClassDirective } from '@shared';
+import { PwdDirective, DivClassDirective, AddTextDirective } from '@shared';
 
 @Component({
   selector: 'xp-directive-demo',
   standalone: true,
-  imports: [CommonModule, PwdDirective, DivClassDirective],
+  imports: [CommonModule, PwdDirective, DivClassDirective, AddTextDirective],
   templateUrl: './directive-demo.component.html',
   styleUrl: './directive-demo.component.less',
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
@@ -13,4 +13,6 @@ import { PwdDirective, DivClassDirective } from '@shared';
     role: 'menuitem',
   },
 })
-export class DirectiveDemoComponent {}
+export class DirectiveDemoComponent {
+  text: string | TemplateRef<any> = '测试测试';
+}
