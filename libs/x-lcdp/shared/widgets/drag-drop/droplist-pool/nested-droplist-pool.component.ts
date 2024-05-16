@@ -14,8 +14,8 @@ import type {
   CdkDropList,
   CdkDragDrop,
 } from '@angular/cdk/drag-drop';
-import { RhDragDropService } from '@x/lcdp/core';
-import { IComponentResource, IComponentSchemaDto } from '@x/lcdp/model';
+import { XDragDropService } from '@x/lcdp/designer';
+import { IComponentResource, IComponentSchema } from '@x/lcdp/model';
 import { RhSafeAny } from '@x/base/model';
 import { XPoolItemComponent } from '../pool-item/pool-item.component';
 
@@ -37,18 +37,10 @@ export class NestedDroplistPoolComponent {
     return this.isDropAllowed(drag, drop);
   };
 
-  constructor(public dragDropSer: RhDragDropService) {
-    //
-  }
+  DragDropContainerId = '#designer-page';
 
-  dragReleased(event: CdkDragRelease) {
-    this.dragDropSer.dragReleased(event);
-    this.dragDropSer.dragReleased(event);
-    const target = event.event.target;
-    // 判定是否拖动到了设计器内部
-    if ((target as Element)?.closest('#designer-page')) {
-      this.rhDragToDesigner.emit(event.source.data);
-    }
+  constructor(public dragDropSer: XDragDropService) {
+    //
   }
 
   dropped(event: CdkDragDrop<RhSafeAny>) {
@@ -89,8 +81,17 @@ export class NestedDroplistPoolComponent {
   }
 
   protected dragMoved(
-    event: CdkDragMove<IComponentResource | IComponentSchemaDto>
+    event: CdkDragMove<IComponentResource | IComponentSchema>
   ) {
     this.dragDropSer.dragMoved(event);
+  }
+
+  dragReleased(event: CdkDragRelease) {
+    this.dragDropSer.dragReleased(event);
+    const target = event.event.target;
+    // 判定是否拖动到了设计器内部
+    if ((target as Element)?.closest(this.DragDropContainerId)) {
+      this.rhDragToDesigner.emit(event.source.data);
+    }
   }
 }

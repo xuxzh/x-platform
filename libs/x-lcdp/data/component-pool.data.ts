@@ -3,7 +3,7 @@ import {
   DesignerComponentType,
   IComponentResource,
   IComponentResourceGroup,
-  RhComponentIconMapping as Icons,
+  XComponentIconMapping as Icons,
 } from '@x/lcdp/model';
 
 /** 组件池数据 */

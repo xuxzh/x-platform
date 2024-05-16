@@ -1,1 +1,115 @@
-<p>designer-canvas works!</p>
+<div
+  id="nested-droplist-designer-div"
+  class="rh-full entire-page"
+  tabindex="2"
+  (keydown)="initKeyboardShortcutListener($event)"
+>
+  <!-- 横向、纵向标尺线左上角交汇区域 -->
+  <div class="box" style="z-index: 10"></div>
+  <!--   <div  style="position: absolute;left:28px;top:28px;right:0;bottom:0;overflow: auto;">
+
+  </div> -->
+
+  <!-- 画布区域 -->
+  <div
+    class="rh-full canvas container-boundary"
+    style="overflow: auto; position: absolute; top: 0; left: 0; padding: 0"
+  >
+    <div
+      #horizontalRuler
+      class="ruler horizontal"
+      [ngStyle]="{ width: horizontalData.ViewPortLength + 'px' }"
+      style="
+        left: 0px;
+        top: 0;
+        margin-left: 28px;
+        z-index: 9;
+        position: sticky;
+        min-width: '100%';
+      "
+    ></div>
+    <!-- 纵向标尺线 -->
+    <div
+      #verticalRuler
+      class="ruler vertical"
+      [ngStyle]="{ height: verticalData.ViewPortLength + 'px' }"
+      style="
+        top: 28px;
+        left: 0;
+        z-index: 9;
+        position: sticky;
+        min-height: '100%';
+      "
+    ></div>
+    <div
+      style="left: 28px; top: 28px; position: absolute; transform-origin: 0 0"
+      [ngStyle]="{
+        width: width + 'px',
+        height: height + 'px',
+        transform: 'scale(' + scale + ')'
+      }"
+    >
+      <!-- page区域 -->
+      <div
+        id="designer-page"
+        class="rh-full rh-main-container designer-page"
+        [class.active]="
+          jsonSchemaData &&
+          jsonSchemaData.key &&
+          jsonDesignerSer.selectStatusObj[jsonSchemaData.key]
+        "
+        [ngStyle]="pageStyle"
+        (click)="onSelectPage($event)"
+        (drop)="onDragEnter($event)"
+        (dragleave)="preventDefault($event)"
+        (dragenter)="preventDefault($event)"
+        (dragover)="preventDefault($event)"
+      >
+        <nz-tabset
+          class="rh-full"
+          [nzSelectedIndex]="tabSer.selectedTabIndex + 1"
+          [nzTabBarStyle]="{ display: 'none' }"
+        >
+          <nz-tab>
+            <x-droplist-container
+              [rhData]="jsonSchemaData"
+            ></x-droplist-container>
+          </nz-tab>
+          <nz-tab
+            *ngFor="
+              let item of jsonSchemaData.subPages;
+              index as i;
+              trackBy: trackByIndex
+            "
+          >
+            <ng-template nz-tab>
+              <x-droplist-container [rhData]="item"></x-droplist-container>
+            </ng-template>
+          </nz-tab>
+        </nz-tabset>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="status-bar">
+    <rh-designer-status-bar></rh-designer-status-bar>
+  </div> -->
+</div>
+<!-- 容器组件配置，目前只需要配置列数 -->
+<ng-template #CompConfigTpl>
+  <form nz-form>
+    <nz-form-item>
+      <nz-form-label nzRequired nzSpan="6">列数</nz-form-label>
+      <nz-form-control nzSpan="14">
+        <nz-input-number
+          class="rh-full"
+          [(ngModel)]="colCount"
+          [nzMin]="1"
+          [nzMax]="24"
+          [nzStep]="1"
+          name="colCount"
+        >
+        </nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</ng-template>

@@ -11,10 +11,8 @@ import { RhSafeAny } from '@x/base/model';
  * 拖放服务，用于维护droplist的相互连接关系
  * @description 该服务会统一管理界面中的`droplist`实例，并动态维护每个`droplist`可以拖动到的其他`droplist`:`cdkDropListConnectedTo`
  */
-@Injectable({
-  providedIn: 'root',
-})
-export class RhDragDropService {
+@Injectable()
+export class XDragDropService {
   #dropLists: CdkDropList[] = [];
 
   get dropLists(): CdkDropList[] {

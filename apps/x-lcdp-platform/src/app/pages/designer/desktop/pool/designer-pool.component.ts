@@ -5,11 +5,18 @@ import { XLcdpSharedModule } from '@x/lcdp/shared';
 import { FormsModule } from '@angular/forms';
 import { IComponentResource } from '@x/lcdp/model';
 import { RH_COMPONENT_SOURCE_CONFIG } from '@x/lcdp/data';
+import { XLcdpDesignerModule } from '@x/lcdp/designer';
 
 @Component({
   selector: 'xp-designer-pool',
   standalone: true,
-  imports: [CommonModule, FormsModule, XSharedModule, XLcdpSharedModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    XSharedModule,
+    XLcdpDesignerModule,
+    XLcdpSharedModule,
+  ],
   templateUrl: './designer-pool.component.html',
   styleUrl: './designer-pool.component.less',
 })
