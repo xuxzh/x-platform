@@ -1,0 +1,21 @@
+// 标尺线宽度/高度
+@ruler_size: 28px;
+@status-bar-height: 28px;
+
+.x-entire {
+  .ruler {
+    position: absolute;
+    top: 0;
+    left: 0;
+    &.horizontal {
+      left: @ruler_size;
+      width: calc(100% - @ruler_size);
+      height: @ruler_size;
+    }
+    &.vertical {
+      top: @ruler_size;
+      width: @ruler_size;
+      height: calc(100% - @ruler_size);
+    }
+  }
+}
