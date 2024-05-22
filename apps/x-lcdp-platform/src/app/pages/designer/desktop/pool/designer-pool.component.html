@@ -26,11 +26,11 @@
       [(nzActive)]="item.expand"
     >
       <div class="size-full">
-        <x-nested-droplist-pool
+        <x-droplist-pool
           [rhData]="item"
           (rhDragToDesigner)="onDragToDesigner($event)"
         >
-        </x-nested-droplist-pool>
+        </x-droplist-pool>
       </div>
     </nz-collapse-panel>
   </nz-collapse>

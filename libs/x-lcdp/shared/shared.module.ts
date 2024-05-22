@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { NestedDroplistPoolComponent } from './widgets/index';
+import { XDroplistPoolComponent } from './widgets/index';
 import {
   ANTD_COMPONENT_POOL_DATASET,
   RH_COMPONENT_SOURCE_CONFIG,
 } from '@x/lcdp/data';
-const widgets = [NestedDroplistPoolComponent];
+const widgets = [XDroplistPoolComponent];
 
 @NgModule({
   imports: [...widgets],

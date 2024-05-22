@@ -1,4 +1,4 @@
-<div class="x-entire bg-orange-200 size-full flex flex-col">
+<div class="x-entire size-full flex flex-col">
   <!-- 纵横标尺交会区域 -->
   <!-- <div class="box"></div>
   <div class="size-full absolute top-0 left-0">
@@ -17,12 +17,10 @@
   </div>
   <div class="flex-auto flex">
     <div class="flex-none w-7"></div>
-    <div class="flex-auto">
-      <!-- 纵向标尺 -->
-      <div #verticalRuler class="ruler vertical"></div>
-      <div>
-        <ng-content></ng-content>
-      </div>
+    <!-- 纵向标尺 -->
+    <div #verticalRuler class="ruler vertical"></div>
+    <div class="flex-auto bg-orange-200">
+      <ng-content></ng-content>
     </div>
   </div>
 </div>

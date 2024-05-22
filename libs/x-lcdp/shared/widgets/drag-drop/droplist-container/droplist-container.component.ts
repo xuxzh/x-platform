@@ -11,12 +11,15 @@ import {
 } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   Host,
   Input,
+  OnDestroy,
   Optional,
   SkipSelf,
+  ViewChild,
   inject,
 } from '@angular/core';
 import { RhSafeAny } from '@x/base/model';
@@ -53,8 +56,12 @@ import { XPoolItemComponent } from '../pool-item/pool-item.component';
   templateUrl: './droplist-container.component.html',
   standalone: true,
 })
-export class XDroplistContainerComponent {
+export class XDroplistContainerComponent implements OnDestroy, AfterViewInit {
   @Input() rhData!: IComponentSchema;
+
+  @ViewChild(CdkDropList) dropList?: CdkDropList;
+  /** 是否将自身注册为`dropList` */
+  registerable = true;
 
   dragDropService = inject(XDragDropService);
 
@@ -79,6 +86,19 @@ export class XDroplistContainerComponent {
     public jsonDesignerSer: XJsonDesignerService,
     public cdr: ChangeDetectorRef
   ) {}
+
+  ngAfterViewInit(): void {
+    if (this.dropList && this.registerable) {
+      this.dragDropService.register(this.dropList);
+      // console.log(this.rhData, this.dropList);
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.dropList && this.registerable) {
+      this.dragDropService.unregister(this.dropList);
+    }
+  }
 
   /**
    * 拖拽时的核心处理方法

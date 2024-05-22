@@ -17,7 +17,10 @@ import { IRulerAndStageData } from '@x/lcdp/model';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { XSchemaDataBase } from '../base';
-import { XDroplistContainerComponent } from '@x/lcdp/shared';
+import {
+  XCanvasWithRulerComponent,
+  XDroplistContainerComponent,
+} from '@x/lcdp/shared';
 import { RhSafeAny, WithNil } from '@x/base/model';
 import { MsgHelper } from '@x/base/core';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
@@ -44,6 +47,7 @@ interface RulerAndStageData {
     NzInputNumberModule,
     FormsModule,
     XDroplistContainerComponent,
+    XCanvasWithRulerComponent,
   ],
   templateUrl: './designer-canvas.component.html',
   styleUrl: './designer-canvas.component.less',

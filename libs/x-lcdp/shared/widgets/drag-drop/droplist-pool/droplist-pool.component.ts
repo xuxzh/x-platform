@@ -20,13 +20,13 @@ import { RhSafeAny } from '@x/base/model';
 import { XPoolItemComponent } from '../pool-item/pool-item.component';
 
 @Component({
-  selector: 'x-nested-droplist-pool',
+  selector: 'x-droplist-pool',
   standalone: true,
   imports: [CommonModule, DragDropModule, XPoolItemComponent],
-  templateUrl: './nested-droplist-pool.component.html',
-  styleUrl: './nested-droplist-pool.component.less',
+  templateUrl: './droplist-pool.component.html',
+  styleUrl: './droplist-pool.component.less',
 })
-export class NestedDroplistPoolComponent {
+export class XDroplistPoolComponent {
   @Input() rhData!: IComponentResource;
   @Input() rhCustomItemContentTpl?: TemplateRef<RhSafeAny>;
 

@@ -8,87 +8,6 @@
   // 为了子节点的absolute定位
   position: relative;
 
-  .ruler {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .ruler.horizontal {
-    left: @ruler_size;
-    width: calc(100% - @ruler_size);
-    height: @ruler_size;
-  }
-
-  .ruler.vertical {
-    top: @ruler_size;
-    width: @ruler_size;
-    height: calc(100% - @ruler_size);
-  }
-
-  .box {
-    position: relative;
-    width: @ruler_size;
-    height: @ruler_size;
-    background: #e9e9e9;
-    box-sizing: border-box;
-    z-index: 21;
-  }
-
-  .box:before,
-  .box:after {
-    position: absolute;
-    content: '';
-    background: #777;
-  }
-
-  .box:before {
-    width: 1px;
-    height: 100%;
-    left: 100%;
-  }
-
-  .box:after {
-    height: 1px;
-    width: 100%;
-    top: 100%;
-  }
-
-  // 画布区域
-  .canvas {
-    overflow: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0;
-    // position: relative;
-    // top: @ruler_size;
-    // left: @ruler_size;
-    // width: calc(100% - @ruler_size);
-    width: 100%;
-    height: calc(100% - @status-bar-height);
-    // height: 100%;
-    padding: 4px;
-
-    .designer-page {
-      .active {
-        border: 1px solid @nz-color-primary;
-      }
-    }
-  }
-
-  .canvas-background-default {
-    // 画布斑点背景
-    background: radial-gradient(circle at 1px 1px, #d8d8d8 1.5px, #f3f3f5 0);
-    background-size: 24px 24px;
-  }
-
-  .canvas-background-dark {
-    // 画布斑点背景
-    background: radial-gradient(circle at 1px 1px, black 1.5px, #2c2c2c 0);
-    background-size: 24px 24px;
-  }
-
   .status-bar {
     position: absolute;
     bottom: 0px;
@@ -172,4 +91,8 @@
   :host::ng-deep .designer-page > nz-tabset > div > div.ant-tabs-content {
     height: 100%;
   }
+}
+
+:host::ng-deep .designer-page > nz-tabset > div > div.ant-tabs-content {
+  height: 100%;
 }
