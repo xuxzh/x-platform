@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { XBaseCoreModule } from '@x/base/core';
 
 @Component({
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, XBaseCoreModule],
   selector: 'xp-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.less',
