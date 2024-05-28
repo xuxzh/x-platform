@@ -80,9 +80,9 @@ export class XDroplistContainerComponent implements OnDestroy, AfterViewInit {
   DragDropContainerId = '#designer-page';
 
   constructor(
-    @Host()
     @SkipSelf()
     @Optional()
+    @Host()
     public jsonDesignerSer: XJsonDesignerService,
     public cdr: ChangeDetectorRef
   ) {}

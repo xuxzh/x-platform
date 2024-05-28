@@ -1,36 +1,22 @@
 <div class="size-full entire-page">
-  <div
-    *ngIf="rhData"
-    class="drop-list size-full"
-    cdkDropList
-    [cdkDropListData]="rhData"
-    [cdkDropListConnectedTo]="dragDropService.dropLists"
-    [cdkDropListEnterPredicate]="allowDropPredicate"
-    (cdkDropListDropped)="dropped($event)"
-    [ngStyle]="containerStyle"
-  >
-    <div
-      *ngFor="
+  <div *ngIf="rhData" class="drop-list size-full" cdkDropList [cdkDropListData]="rhData"
+    [cdkDropListConnectedTo]="dragDropService.dropLists" [cdkDropListEnterPredicate]="allowDropPredicate"
+    (cdkDropListDropped)="dropped($event)" [ngStyle]="containerStyle">
+    <div *ngFor="
         let item of rhData.children;
         let index = index;
         trackBy: $any(trackByTimeStamp)
-      "
-      class="drag-item"
-      [style.width]="item?.['x-component-props']?.['rhFill'] ? '100%' : ''"
-      [style]="item['x-wrapper-styles']"
-      cdkDrag
-      [cdkDragData]="item"
-      [cdkDragDisabled]="!jsonDesignerSer.selectStatusObj[item.key]"
-      (cdkDragMoved)="dragMoved($event)"
-      (cdkDragReleased)="dragReleased($event)"
-    >
+      " class="drag-item" [style.width]="item?.['x-component-props']?.['rhFill'] ? '100%' : ''"
+      [style]="item['x-wrapper-styles']" cdkDrag [cdkDragData]="item"
+      [cdkDragDisabled]="!jsonDesignerSer.selectStatusObj[item.key]" (cdkDragMoved)="dragMoved($event)"
+      (cdkDragReleased)="dragReleased($event)">
       <!-- 拖动时的placeholder模板 -->
       <div class="drag-item-placeholder" *cdkDragPlaceholder>
         <i nz-icon nzType="tags" nzTheme="outline"></i>
         {{ item?.displayName }}
       </div>
 
-      <!-- 拖动预览样式?? -->
+      <!-- 拖动预览样式 -->
       <x-pool-item *cdkDragPreview [rhData]="$any(item)"> </x-pool-item>
       <!-- 快捷操作栏：拖动/删除等 -->
       <ng-container *ngIf="jsonDesignerSer.selectStatusObj[item.key]">
@@ -39,89 +25,43 @@
             <div class="button primary" title="拖动" cdkDragHandle>
               <span class="icon iconfont icon-move"></span>
             </div>
-            <div
-              class="button default"
-              title="复制"
-              (click)="copySchemaData(item)"
-            >
-              <i
-                class="icon iconfont"
-                nz-icon
-                nzType="copy"
-                nzTheme="outline"
-              ></i>
+            <div class="button default" title="复制" (click)="copySchemaData(item)">
+              <i class="icon iconfont" nz-icon nzType="copy" nzTheme="outline"></i>
             </div>
-            <div
-              class="button default"
-              title="前移"
-              (click)="changeItemPosition(index, 'up')"
-            >
-              <i
-                class="icon iconfont"
-                nz-icon
-                nzType="caret-up"
-                nzTheme="outline"
-              ></i>
+            <div class="button default" title="前移" (click)="changeItemPosition(index, 'up')">
+              <i class="icon iconfont" nz-icon nzType="caret-up" nzTheme="outline"></i>
             </div>
-            <div
-              class="button default"
-              title="后移"
-              (click)="changeItemPosition(index, 'down')"
-            >
-              <i
-                class="icon iconfont"
-                nz-icon
-                nzType="caret-down"
-                nzTheme="outline"
-              ></i>
+            <div class="button default" title="后移" (click)="changeItemPosition(index, 'down')">
+              <i class="icon iconfont" nz-icon nzType="caret-down" nzTheme="outline"></i>
             </div>
             <ng-container>
-              <div
-                class="button danger"
-                title="删除"
-                (click)="deleteSchemaData(item)"
-              >
+              <div class="button danger" title="删除" (click)="deleteSchemaData(item)">
                 <i nz-icon nzType="delete" nzTheme="outline"></i>
               </div>
             </ng-container>
-            <div
-              class="text"
-              x-popover
-              [xPopoverContent]="
+            <div class="text" x-popover [xPopoverContent]="
                 jsonDesignerSer.selectCompTreeDataSet.length ? CompTreeTpl : ''
-              "
-            >
+              ">
               <span [title]="item.description || item.displayName">
-                {{ item.displayName }}</span
-              >
+                {{ item.displayName }}</span>
             </div>
           </div>
         </div>
       </ng-container>
       <!-- 子组件渲染 -->
-      <div
-        class="drag-item-container"
-        rhItemContainer
-        (click)="onSelectItemChange($event, item)"
-      >
+      <div class="drag-item-container" rhItemContainer (click)="onSelectItemChange($event, item)">
         <ng-container xCompRender [rhComponentSchema]="item"></ng-container>
       </div>
     </div>
   </div>
   <!-- 用于子容器的选中显示，如：栅格容器内的子栅格 -->
-  <ng-container
-    *ngIf="
+  <ng-container *ngIf="
       rhData.type === 'void' && jsonDesignerSer.selectStatusObj[rhData.key]
-    "
-  >
+    ">
     <div class="wrapper" (click)="stopPropagation($event)">
-      <div
-        class="text"
-        x-popover
-        [xPopoverContent]="
+      <div class="text" x-popover [xPopoverContent]="
           jsonDesignerSer.selectCompTreeDataSet.length ? CompTreeTpl : ''
-        "
-      >
+        ">
         {{ rhData.displayName }}
       </div>
     </div>
@@ -130,12 +70,8 @@
 <!-- 节点的父节点组件列表的模板 -->
 <ng-template #CompTreeTpl>
   <div *ngFor="let item of jsonDesignerSer.selectCompTreeDataSet">
-    <span
-      class="comp-tree-item"
-      (click)="onSelectMapItem(item['key'])"
-      [class.active]="item.select"
-      [class.before]="item['child']"
-      >{{ item.displayName }}({{ item.name }})
+    <span class="comp-tree-item" (click)="onSelectMapItem(item['key'])" [class.active]="item.select"
+      [class.before]="item['child']">{{ item.displayName }}({{ item.name }})
     </span>
   </div>
 </ng-template>
