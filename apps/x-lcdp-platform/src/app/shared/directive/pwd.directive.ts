@@ -3,6 +3,8 @@ import {
   ElementRef,
   HostListener,
   Input,
+  OnInit,
+  Renderer2,
   inject,
 } from '@angular/core';
 
@@ -13,7 +15,7 @@ type PasswordStrength = 'weak' | 'medium' | 'strong';
   selector: 'input[type="password"]',
   standalone: true,
 })
-export class PwdDirective {
+export class PwdDirective implements OnInit {
   @Input() noStrengthCheck = false;
   private readonly el = inject(ElementRef);
 
@@ -26,6 +28,14 @@ export class PwdDirective {
     const value = input.value;
     const strength = this.evaluatePasswordStrength(value);
     this.el.nativeElement.classList.add(`pwd-strength-${strength}`);
+  }
+
+  renderer = inject(Renderer2);
+  eleRef = inject(ElementRef);
+
+  ngOnInit(): void {
+    console.log(this.eleRef.nativeElement);
+    this.renderer.addClass(this.eleRef.nativeElement, 'ant-input-disabled');
   }
 
   evaluatePasswordStrength(pwd: string): PasswordStrength {
