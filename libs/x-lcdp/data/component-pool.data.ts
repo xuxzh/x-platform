@@ -5,6 +5,8 @@ import {
   IComponentResourceGroup,
   XComponentIconMapping as Icons,
 } from '@x/lcdp/model';
+// import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { XBasicButtonComponent, XBasicDivComponent } from '@x/base/shared';
 
 /** 组件池数据 */
 export const RH_COMPONENT_SOURCE_CONFIG = new InjectionToken<
@@ -27,7 +29,7 @@ export const ANTD_COMPONENT_POOL_DATASET: IComponentResourceGroup[] = [
         description: '按钮',
         type: 'general',
         icon: Icons['btn'],
-        component: null,
+        component: XBasicButtonComponent,
       },
       {
         name: DesignerComponentType.Div,
@@ -35,7 +37,7 @@ export const ANTD_COMPONENT_POOL_DATASET: IComponentResourceGroup[] = [
         description: '原生DIV',
         type: 'general',
         icon: Icons['div'],
-        component: null,
+        component: XBasicDivComponent,
       },
     ],
   },

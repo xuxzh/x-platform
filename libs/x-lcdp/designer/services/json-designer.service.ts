@@ -4,7 +4,7 @@ import { IDisplay, RhSafeAny, WithNil } from '@x/base/model';
 import {
   DesignerComponentType,
   IComponentFieldSetting,
-  IComponentNode,
+  ISchemaNode,
   IComponentResource,
   IComponentSchema,
   IPageSchema,
@@ -71,7 +71,7 @@ export class XJsonDesignerService {
     this.changeDesignerNode(null);
   }
 
-  changeDesignerNode(node: IComponentNode | null) {
+  changeDesignerNode(node: ISchemaNode | null) {
     this.designNodeOperationType = 'select';
     if (!node) {
       this.designerNode = null;
@@ -344,10 +344,7 @@ export class XJsonDesignerService {
   }
 
   /** 删除节点 */
-  deleteNode(
-    node: IComponentNode | null = this.designerNode,
-    setHistory = true
-  ) {
+  deleteNode(node: ISchemaNode | null = this.designerNode, setHistory = true) {
     if (!node) return;
     if (node.key == JSON_SCHEMA_ROOT_KEY) return; //暂且不让删根节点
     const parent = this.removeSchemaData(node);
@@ -372,11 +369,11 @@ export class XJsonDesignerService {
     return `${camelCase(compType)}${index}`;
   }
 
-  isPageSchema(node: IComponentNode): node is IPageSchema {
+  isPageSchema(node: ISchemaNode): node is IPageSchema {
     return Object.hasOwnProperty.call(node, 'subPages');
   }
 
-  isComponentSchema(node: IComponentNode): node is IComponentSchema {
+  isComponentSchema(node: ISchemaNode): node is IComponentSchema {
     return !!node.compType;
   }
 

@@ -9,7 +9,7 @@ import {
 } from '@x/lcdp/model';
 
 @Injectable()
-export class XSharedService {
+export class XLcdpSharedService {
   constructor(
     @Optional()
     @Inject(RH_COMPONENT_SOURCE_CONFIG)

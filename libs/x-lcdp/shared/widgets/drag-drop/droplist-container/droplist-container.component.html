@@ -39,23 +39,23 @@
                 <i nz-icon nzType="delete" nzTheme="outline"></i>
               </div>
             </ng-container>
-            <div class="text" x-popover [xPopoverContent]="
+            <!-- <div class="text" x-popover [xPopoverContent]="
                 jsonDesignerSer.selectCompTreeDataSet.length ? CompTreeTpl : ''
               ">
               <span [title]="item.description || item.displayName">
                 {{ item.displayName }}</span>
-            </div>
+            </div> -->
           </div>
         </div>
       </ng-container>
       <!-- 子组件渲染 -->
-      <div class="drag-item-container" rhItemContainer (click)="onSelectItemChange($event, item)">
+      <div class="drag-item-container" (click)="onSelectItemChange($event, item)">
         <ng-container xCompRender [rhComponentSchema]="item"></ng-container>
       </div>
     </div>
   </div>
-  <!-- 用于子容器的选中显示，如：栅格容器内的子栅格 -->
-  <ng-container *ngIf="
+  <!-- TODO: 用于子容器的选中显示，如：栅格容器内的子栅格 -->
+  <!-- <ng-container *ngIf="
       rhData.type === 'void' && jsonDesignerSer.selectStatusObj[rhData.key]
     ">
     <div class="wrapper" (click)="stopPropagation($event)">
@@ -65,13 +65,13 @@
         {{ rhData.displayName }}
       </div>
     </div>
-  </ng-container>
+  </ng-container> -->
 </div>
 <!-- 节点的父节点组件列表的模板 -->
-<ng-template #CompTreeTpl>
+<!-- <ng-template #CompTreeTpl>
   <div *ngFor="let item of jsonDesignerSer.selectCompTreeDataSet">
     <span class="comp-tree-item" (click)="onSelectMapItem(item['key'])" [class.active]="item.select"
       [class.before]="item['child']">{{ item.displayName }}({{ item.name }})
     </span>
   </div>
-</ng-template>
+</ng-template> -->

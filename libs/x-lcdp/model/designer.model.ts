@@ -171,8 +171,28 @@ export interface IComponentStyle {
   active: WithNil<string[]>;
 }
 
-export type IComponentNode = IPageSchema | IComponentSchema;
+/**
+ * JSON节点
+ */
+export type ISchemaNode = IPageSchema | IComponentSchema;
 
+/** json schema的操作类型：选择|删除|复制|节点编辑|节点拖拽|添加子节点|初始化JSON Schema
+ * @description 每次操作会在`JsonSchemaService`存储当前的操作类型，消费者可以根据当前的操作类型判断是否需要更新自身的组件
+ */
+export type XSchemaOperationType =
+  | 'select'
+  | 'delete'
+  | 'copy'
+  | 'node-edit' // 节点编辑状态，右侧节点编辑组件会订阅此类变更，且当其在进行操作时，也是这个状态
+  | 'drag'
+  | 'add-child'
+  | 'init' // 初始化，手动刷新方法也会触发初始化
+  | 'refresh'
+  | 'node' // 节点类型，一般用于模态框等子页面的类型标注 ;
+  | 'do' // redo undo 撤销和反撤销操作
+  | null;
+
+/** 页面JSON */
 export type IPageSchema = IComponentSchema & {
   /** 子页面配置 */
   subPages: IComponentSchema[];

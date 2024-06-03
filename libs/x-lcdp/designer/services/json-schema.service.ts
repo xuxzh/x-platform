@@ -10,11 +10,12 @@ import {
   IComponentSchema,
   IPageSchema,
   XJsonSchemaOperationType,
+  XSchemaOperationType,
 } from '@x/lcdp/model';
 import { XJsonMapData } from '@x/lcdp/core';
 import { guid } from '@x/base/core';
 import { XToolbarTabsService } from './toolbar-tabs.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 /**
  * lcdp动态渲染服务
@@ -22,14 +23,16 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class XJsonSchemaService {
   /** 完整的jsonSchemaData */
-  private _jsonSchemaDataset: IPageSchema = getInitialSchemaData();
+  private _jsonSchemaData: IPageSchema = getInitialSchemaData();
+
+  jsonSchemaData$ = new Subject<IPageSchema>();
 
   /**
    * 完整的jsonSchemaData
    * @description 因为`jsonSchemaDataset`会在切换到子页面时发生变化，故新增此属性
    */
   get rootJsonSchemaDataset() {
-    return this._jsonSchemaDataset;
+    return this._jsonSchemaData;
   }
 
   tabSer = inject(XToolbarTabsService);
@@ -110,8 +113,15 @@ export class XJsonSchemaService {
     }
   }
 
-  refreshSchemaData(type: RhSafeAny, data?: IComponentSchema) {
-    //
+  refreshSchemaData(type: XSchemaOperationType, data?: IComponentSchema) {
+    switch (type) {
+      case 'refresh':
+        this.jsonSchemaData$.next(this._jsonSchemaData);
+        break;
+      default:
+        this._jsonSchemaData = data as IPageSchema;
+        this.jsonSchemaData$.next(data as IPageSchema);
+    }
   }
 
   /** 新建子页面 */

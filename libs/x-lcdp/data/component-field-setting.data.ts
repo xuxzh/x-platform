@@ -7,7 +7,14 @@ export const COMPONENT_FIELD_SETTING_MAPPED: Record<
 > = {
   // 按钮
   [DesignerComponentType.Div]: [],
-  [DesignerComponentType.Btn]: [],
+  [DesignerComponentType.Btn]: [
+    {
+      name: 'xDanger',
+      displayName: '是否危险',
+      type: 'boolean',
+      defaultValue: true,
+    },
+  ],
   // FIXME:
   [DesignerComponentType.Void]: [],
   [DesignerComponentType.SubPage]: [],

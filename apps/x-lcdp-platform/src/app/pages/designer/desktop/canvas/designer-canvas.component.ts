@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   XJsonDesignerService,
@@ -17,6 +17,7 @@ import { RhSafeAny } from '@x/base/model';
 import { MsgHelper } from '@x/base/core';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { FormsModule } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'xp-designer-canvas',
@@ -35,7 +36,7 @@ import { FormsModule } from '@angular/forms';
   providers: [XJsonDesignerService],
   viewProviders: [XJsonDesignerService],
 })
-export class DesignerCanvasComponent extends XSchemaDataBase {
+export class DesignerCanvasComponent extends XSchemaDataBase implements OnInit {
   keyboardShortSer = inject(XKeyboardShortcutService);
 
   width = 1024;
@@ -65,6 +66,14 @@ export class DesignerCanvasComponent extends XSchemaDataBase {
 
   constructor(public cdr: ChangeDetectorRef) {
     super();
+  }
+
+  ngOnInit(): void {
+    this.jsonSchemaSer.jsonSchemaData$
+      .pipe(debounceTime(200))
+      .subscribe((data) => {
+        this.jsonSchemaData = data;
+      });
   }
   initKeyboardShortcutListener(ev: KeyboardEvent) {
     //console.log(ev);

@@ -10,7 +10,7 @@ import {
   OnChanges,
   ComponentRef,
 } from '@angular/core';
-import { XSharedService } from '../services';
+import { XLcdpSharedService } from '../services';
 import { IComponentSchema } from '@x/lcdp/model';
 import { RhSafeAny, WithNil } from '@x/base/model';
 import { MsgHelper, guid } from '@x/base/core';
@@ -54,7 +54,7 @@ export class XCompRenderDirective implements OnChanges {
 
   constructor(
     protected containerRef: ViewContainerRef,
-    protected sharedSer: XSharedService
+    protected sharedSer: XLcdpSharedService
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -100,45 +100,27 @@ export class XCompRenderDirective implements OnChanges {
     const componentRef = this.containerRef.createComponent(
       targetComp.component
     );
-    const compConfig =
-      this.rhComponentSchema?.['x-component-props'] ||
-      this.rhComponentSchema?.['compConfig'];
-    const defaultCompType =
-      COMPONENT_FIELD_SETTING_MAPPED[this.rhComponentSchema?.compType];
-    const incompleteCompList =
-      defaultCompType && Array.isArray(defaultCompType)
-        ? defaultCompType.filter(
-            (e) => !Object.hasOwnProperty.call(compConfig, e.name)
-          )
-        : [];
-    if (compConfig && Object.entries(compConfig)?.length) {
-      Object.entries(compConfig).forEach(([key, value]) => {
-        (componentRef.instance as Record<string, RhSafeAny>)[key] = value;
-      });
-    }
+    const defaultCompConfig: Record<string, RhSafeAny> = {};
+    COMPONENT_FIELD_SETTING_MAPPED[this.rhComponentSchema?.compType]?.forEach(
+      (ele) => {
+        defaultCompConfig[ele.name] = ele.defaultValue;
+      }
+    );
+    let compConfig = this.rhComponentSchema?.['x-component-props'] || {};
+
     /** 存在组件默认属性中包含而json中不存在时，需要给一个默认赋值 */
-    if (defaultCompType && incompleteCompList?.length) {
-      incompleteCompList.forEach((e) => {
-        (componentRef.instance as Record<string, RhSafeAny>)[e.name] =
-          e.defaultValue;
-      });
-    }
-    // 设置组件样式
-    const componentStyle = this.rhComponentSchema?.['x-component-styles'];
-    if (componentStyle) {
-      (componentRef.instance as Record<string, RhSafeAny>)['rhStyle'] =
-        componentStyle;
-    }
+    compConfig = { ...defaultCompConfig, ...compConfig };
+    console.log(compConfig);
+    const compInstance = componentRef.instance;
+    Object.entries(compConfig).forEach(([key, value]) => {
+      (compInstance as Record<string, RhSafeAny>)[key] = value;
+      // if (Object.hasOwnProperty.call(compInstance, 'nzDanger')) {
+
+      // }
+    });
     // 所有的组件都需要设置`_nodeData`属性
     (componentRef.instance as Record<string, RhSafeAny>)['_nodeData'] =
       this.rhComponentSchema;
-    // if (this.rhComponentSchema.children?.length) {
-    //   (componentRef.instance as Record<string, RhSafeAny>)['children'] = this.rhComponentSchema.children;
-    // }
-    // if (this.rhComponentSchema.type === 'container' && this.rhComponentSchema.containerId) {
-    //   (componentRef.instance as RhSafeAny).containerId = this.rhComponentSchema.containerId;
-    // }
-    //this.containerRef.insert(componentRef.hostView);
     this.loadCustom(componentRef);
   }
 
