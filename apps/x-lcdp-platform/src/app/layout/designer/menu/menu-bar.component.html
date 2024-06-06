@@ -1,0 +1,11 @@
+<div class="size-full flex">
+  <div class="flex-auto"></div>
+  <div class="flex-none w-30">
+    <nz-radio-group [(ngModel)]="rhMode" nzButtonStyle="solid" (ngModelChange)="onViewModeChange($event)"
+      nzSize="small">
+      <label *ngFor="let mode of viewModeDataset" nz-radio-button [nzValue]="mode.name" title="{{ mode.displayName }}">
+        <span nz-icon [nzType]="mode.icon"></span>
+      </label>
+    </nz-radio-group>
+  </div>
+</div>

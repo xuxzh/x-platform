@@ -7,6 +7,14 @@ import {
 } from '@x/base/model';
 import type { Observable } from 'rxjs';
 
+/**  设计器视图模式 */
+export type XDesignerViewMode =
+  | 'desktop'
+  | 'mobile'
+  | 'code'
+  | 'preview'
+  | 'json';
+
 /** 组件类型:通用组件、 基础组件、动态组件、业务组件、模板组件、容器 */
 export type RhComponentResourceType =
   | 'general'

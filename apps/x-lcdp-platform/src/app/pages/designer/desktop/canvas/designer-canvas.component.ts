@@ -33,8 +33,6 @@ import { debounceTime } from 'rxjs';
   ],
   templateUrl: './designer-canvas.component.html',
   styleUrl: './designer-canvas.component.less',
-  providers: [XJsonDesignerService],
-  viewProviders: [XJsonDesignerService],
 })
 export class DesignerCanvasComponent extends XSchemaDataBase implements OnInit {
   keyboardShortSer = inject(XKeyboardShortcutService);
