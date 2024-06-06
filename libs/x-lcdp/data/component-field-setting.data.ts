@@ -18,4 +18,5 @@ export const COMPONENT_FIELD_SETTING_MAPPED: Record<
   // FIXME:
   [DesignerComponentType.Void]: [],
   [DesignerComponentType.SubPage]: [],
+  [DesignerComponentType.Home]: [],
 };

@@ -1,6 +1,6 @@
 import { RhSafeAny } from './any.model';
 
-export interface ISelectableDto {
+export interface IXSelectable {
   check?: boolean;
   select?: boolean;
   expand?: boolean;

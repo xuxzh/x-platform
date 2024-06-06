@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { JSON_SCHEMA_OPERATION_TYPE_SET } from '@x/lcdp/data';
 import { XJsonSchemaService } from '@x/lcdp/designer';
 import {
-  IComponentSchema,
   IPageSchema,
   XJsonSchemaOperationType,
   XJsonSchemaTriggerOrigin,
@@ -48,7 +47,7 @@ export class XSchemaDataBase {
         ) {
           return;
         }
-        this.jsonSchemaData = data; //{ ...data } as RhComponentSchemaDto;
+        this.jsonSchemaData = data;
       });
   }
 

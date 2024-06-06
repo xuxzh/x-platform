@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { RhSafeAny, WithNil } from '@x/base/model';
+import { WithNil } from '@x/base/model';
 import {
   JSON_SCHEMA_NODE_KEY,
   JSON_SCHEMA_ROOT_KEY,

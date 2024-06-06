@@ -1,6 +1,6 @@
-import { ISelectableDto } from './selectable.model';
+import { IXSelectable } from './selectable.model';
 
-export interface IDisplay extends ISelectableDto {
+export interface IDisplay extends IXSelectable {
   /** 名称 */
   name: string;
   /** 显示名称 */

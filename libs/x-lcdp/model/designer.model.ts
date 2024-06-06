@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
 import {
   IDisplay,
-  ISelectableDto as ISelectable,
+  IXSelectable as IXSelectable,
   RhSafeAny,
   WithNil,
 } from '@x/base/model';
@@ -15,6 +15,7 @@ export type RhComponentResourceType =
   | 'container'
   | 'dynamic'
   | 'business'
+  | 'page'
   | 'sub-page'
   | 'void'; // 表示为容器节点的直接子节点
 
@@ -25,6 +26,8 @@ export enum DesignerComponentType {
   Div = 'div',
   Void = 'void',
   SubPage = 'sub-page',
+  /** //FIXME: */
+  Home = 'home',
 }
 
 /** schema触发来源 */
@@ -106,6 +109,7 @@ export const XComponentIconMapping: Record<DesignerComponentType, string> = {
   // FIXME:
   [DesignerComponentType.Void]: 'setting',
   [DesignerComponentType.SubPage]: 'setting',
+  [DesignerComponentType.Home]: 'home',
 };
 
 /** 事件及监听器列表 */
@@ -198,8 +202,8 @@ export type IPageSchema = IComponentSchema & {
   subPages: IComponentSchema[];
 };
 
-/** 用于存储的组件JSON schema模型 */
-export interface IComponentSchema extends ISelectable {
+/** 设计界面JSON Schema节点模型 */
+export interface IComponentSchema extends IXSelectable {
   /** 唯一标识，一般自动生成guid */
   key: string;
   /** 组件类型，`basic-div`|`basic-button`等 */
