@@ -34,11 +34,7 @@ export class XSchemaDataBase {
     }
     this.jsonSchemaData = this.jsonSchemaSer.rootJsonSchemaDataset;
     this.jsonSchemaSubscription = this.jsonSchemaSer.jsonSchemaDataset$
-      .pipe(
-        filter(
-          () => !this.jsonSchemaSer.isRuntime && !this.jsonSchemaSer.isRuntime
-        )
-      )
+      .pipe(filter(() => !this.jsonSchemaSer.isRuntime))
       .subscribe((data) => {
         if (
           this.ignoreOperationTypeSet.includes(

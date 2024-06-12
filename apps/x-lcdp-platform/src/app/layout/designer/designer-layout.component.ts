@@ -12,8 +12,12 @@ import {
 @Component({
   selector: 'xp-designer-layout',
   imports: [RouterOutlet, XAntdModule, XLcdpSharedModule, MenuBarComponent],
-  providers: [XJsonDesignerService, XToolbarTabsService, XJsonSchemaService],
-  viewProviders: [XJsonDesignerService, XToolbarTabsService],
+  // providers: [XToolbarTabsService],
+  viewProviders: [
+    XJsonDesignerService,
+    XToolbarTabsService,
+    XJsonSchemaService,
+  ],
   standalone: true,
   styleUrl: './designer-layout.component.less',
   templateUrl: './designer-layout.component.html',

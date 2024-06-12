@@ -25,7 +25,9 @@ export class XJsonSchemaService {
   /** 完整的jsonSchemaData */
   private _jsonSchemaData: IPageSchema = getInitialSchemaData();
 
-  jsonSchemaData$ = new Subject<IPageSchema>();
+  jsonSchemaData$ = new BehaviorSubject<IPageSchema>(
+    this.rootJsonSchemaDataset
+  );
 
   /**
    * 完整的jsonSchemaData

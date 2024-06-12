@@ -67,6 +67,10 @@ export class DesignerSchemaComponent extends XSchemaDataBase implements OnInit {
 
   jsonDesignerSer = inject(XJsonDesignerService);
 
+  constructor() {
+    super();
+  }
+
   ngOnInit(): void {
     // setTimeout(() => {
     //   this.buttonVisible = true;

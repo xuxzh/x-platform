@@ -14,11 +14,8 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
-  Host,
   Input,
   OnDestroy,
-  Optional,
-  SkipSelf,
   ViewChild,
   inject,
 } from '@angular/core';
@@ -79,11 +76,13 @@ export class XDroplistContainerComponent implements OnDestroy, AfterViewInit {
 
   DragDropContainerId = '#designer-page';
 
+  jsonDesignerSer = inject(XJsonDesignerService);
+
   constructor(
-    @SkipSelf()
-    @Optional()
-    @Host()
-    public jsonDesignerSer: XJsonDesignerService,
+    // @SkipSelf()
+    // @Optional()
+    // @Host()
+    // public jsonDesignerSer: XJsonDesignerService,
     public cdr: ChangeDetectorRef
   ) {}
 
