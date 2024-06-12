@@ -15,6 +15,18 @@ import { XInteractionService } from '@x/base/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { RhSafeAny } from '@x/base/model';
+
+import {
+  XMonacoEditorModule,
+  XMonacoEditorConfig,
+  X_MONACO_EDITOR_CONFIG,
+} from '@x/lcdp/editor';
+import {
+  xDesignerLibDeclaration,
+  xEditorLibDeclaration,
+} from '@x/lcdp/designer';
+declare const monaco: RhSafeAny;
 
 function interactionFactory(interactionSer: XInteractionService) {
   return () => {
@@ -35,6 +47,38 @@ const appInitProviders: Provider[] = [
   },
 ];
 
+const monacoConfig: XMonacoEditorConfig = {
+  defaultOptions: { scrollBeyondLastLine: false },
+  onMonacoLoad: () => {
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+      noSemanticValidation: true,
+      noSyntaxValidation: false,
+    });
+
+    // compiler options
+    monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
+      target: monaco.languages.typescript.ScriptTarget.ES2015,
+      allowNonTsExtensions: true,
+    });
+    const lib = xDesignerLibDeclaration;
+    const libUri = 'ts:filename/rh-interaction.d.ts';
+    const lib2 = xEditorLibDeclaration;
+    const libUri2 = 'ts:filename/rh-formLib.d.ts';
+    monaco.languages.typescript.javascriptDefaults.addExtraLib(lib, libUri);
+    monaco.languages.typescript.javascriptDefaults.addExtraLib(lib2, libUri2);
+    // When resolving definitions and references, the editor will try to use created models.
+    // Creating a model for the library allows "peek definition/references" commands to work with the library.
+    monaco.editor.createModel(lib, 'typescript', monaco.Uri.parse(libUri));
+    monaco.editor.createModel(lib2, 'typescript', monaco.Uri.parse(libUri2));
+    // const lib = RH_DECLARRATION;
+    // const libUri = 'ts:filename/rh-declaration.d.ts';
+    // monaco.languages.typescript.javascriptDefaults.addExtraLib(lib, libUri);
+    // // When resolving definitions and references, the editor will try to use created models.
+    // // Creating a model for the library allows "peek definition/references" commands to work with the library.
+    // monaco.editor.createModel(lib, 'typescript', monaco.Uri.parse(libUri));
+  },
+};
+
 export const appConfig: ApplicationConfig = {
   providers: [
     ...appInitProviders,
@@ -44,5 +88,9 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(FormsModule),
     importProvidersFrom(HttpClientModule),
     provideAnimations(),
+    {
+      provide: X_MONACO_EDITOR_CONFIG,
+      useValue: monacoConfig,
+    },
   ],
 };

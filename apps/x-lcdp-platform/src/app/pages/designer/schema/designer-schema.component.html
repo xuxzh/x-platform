@@ -1,1 +1,18 @@
-<p>designer-schema works!</p>
+<div class="size-full">
+  <x-monaco-editor class="size-full" [options]="editorOptions" [(ngModel)]="editorValue"
+    (ngModelChange)="onCodeChange()" (xDidContentSizeChange)="onContentSizeChange()"></x-monaco-editor>
+  <div *ngIf="buttonVisible" class="button-area">
+    <button nz-tooltip nzTooltipTitle="应用更改" class="button" nz-button nzType="primary" type="button" nzSize="large"
+      (click)="saveCode()">
+      <i nz-icon nzType="check" nzTheme="outline"></i>
+    </button>
+    <button nz-tooltip nzTooltipTitle="恢复" class="button" nz-button nzType="default" type="button" nzSize="large"
+      (click)="resetCode()">
+      <i nz-icon nzType="reload" nzTheme="outline"></i>
+    </button>
+    <button nz-tooltip nzTooltipTitle="关闭页面" class="button" nz-button nzType="primary" nzDanger type="button"
+      nzSize="large" (click)="closePage()">
+      <i nz-icon nzType="close" nzTheme="outline"></i>
+    </button>
+  </div>
+</div>

@@ -186,7 +186,7 @@ export interface IComponentStyle {
 /**
  * JSON节点
  */
-export type ISchemaNode = IPageSchema | IComponentSchema;
+export type INodeSchema = IPageSchema | IComponentSchema;
 
 /** json schema的操作类型：选择|删除|复制|节点编辑|节点拖拽|添加子节点|初始化JSON Schema
  * @description 每次操作会在`JsonSchemaService`存储当前的操作类型，消费者可以根据当前的操作类型判断是否需要更新自身的组件

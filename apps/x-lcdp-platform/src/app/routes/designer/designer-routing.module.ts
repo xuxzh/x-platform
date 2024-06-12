@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DesignerLayoutComponent } from '@layout';
-import { DesignerDesktopComponent } from '@pages';
+import {
+  DesignerCodeComponent,
+  DesignerDesktopComponent,
+  DesignerPreviewComponent,
+  DesignerSchemaComponent,
+} from '@pages';
 
 const routes: Routes = [
   {
@@ -11,6 +16,18 @@ const routes: Routes = [
       {
         path: 'desktop',
         component: DesignerDesktopComponent,
+      },
+      {
+        path: 'schema',
+        component: DesignerSchemaComponent,
+      },
+      {
+        path: 'code',
+        component: DesignerCodeComponent,
+      },
+      {
+        path: 'preview',
+        component: DesignerPreviewComponent,
       },
       {
         path: '',

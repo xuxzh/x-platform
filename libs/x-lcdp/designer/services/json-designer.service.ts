@@ -4,7 +4,7 @@ import { IDisplay, RhSafeAny, WithNil } from '@x/base/model';
 import {
   DesignerComponentType,
   IComponentFieldSetting,
-  ISchemaNode,
+  INodeSchema,
   IComponentResource,
   IComponentSchema,
   IPageSchema,
@@ -21,6 +21,7 @@ import { forEach, pull, camelCase } from 'lodash';
 import { XJsonMapData, XJsonSchemaHelper } from '@x/lcdp/core';
 import { XToolbarTabsService } from './toolbar-tabs.service';
 import { XJsonSchemaService } from './json-schema.service';
+import { Subject } from 'rxjs';
 
 /**
  * 设计时的服务
@@ -66,12 +67,15 @@ export class XJsonDesignerService {
   /** 设计器选中的节点对应的组件树下拉框 */
   selectCompTreeDataSet: IDisplay[] = [];
 
+  /** 指示设计大小发生变化 */
+  designerResize$ = new Subject<boolean>();
+
   /** 置null`_designerNode` */
   clearDesignerNode() {
     this.changeDesignerNode(null);
   }
 
-  changeDesignerNode(node: ISchemaNode | null) {
+  changeDesignerNode(node: INodeSchema | null) {
     this.designNodeOperationType = 'select';
     if (!node) {
       this.designerNode = null;
@@ -344,7 +348,7 @@ export class XJsonDesignerService {
   }
 
   /** 删除节点 */
-  deleteNode(node: ISchemaNode | null = this.designerNode, setHistory = true) {
+  deleteNode(node: INodeSchema | null = this.designerNode, setHistory = true) {
     if (!node) return;
     if (node.key == JSON_SCHEMA_ROOT_KEY) return; //暂且不让删根节点
     const parent = this.removeSchemaData(node);
@@ -369,11 +373,11 @@ export class XJsonDesignerService {
     return `${camelCase(compType)}${index}`;
   }
 
-  isPageSchema(node: ISchemaNode): node is IPageSchema {
+  isPageSchema(node: INodeSchema): node is IPageSchema {
     return Object.hasOwnProperty.call(node, 'subPages');
   }
 
-  isComponentSchema(node: ISchemaNode): node is IComponentSchema {
+  isComponentSchema(node: INodeSchema): node is IComponentSchema {
     return !!node.compType;
   }
 
