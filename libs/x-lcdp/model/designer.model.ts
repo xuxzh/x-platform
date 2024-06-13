@@ -228,8 +228,8 @@ export interface IComponentSchema extends IXSelectable {
   hasChildContainer?: boolean;
   /** 父节点Key */
   parent: string | null;
-  /** 组件类对应的标识 */
-  'x-component'?: string;
+  // /** 组件类对应的标识 */
+  // 'x-component'?: string;
   /** 组件数据 */
   'x-component-data'?: WithNil<IDataLinkConfig>;
   /** 组件属性 */

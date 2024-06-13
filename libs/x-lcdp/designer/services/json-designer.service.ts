@@ -14,7 +14,7 @@ import { isNotNil } from 'ng-zorro-antd/core/util';
 import {
   DEFAULT_MIN_HEIGHT,
   JSON_SCHEMA_ROOT_KEY,
-  getInitialSchemaData,
+  getInitialPageSchemaData,
 } from '@x/lcdp/data';
 import { forEach, pull, camelCase } from 'lodash';
 
@@ -54,7 +54,7 @@ export class XJsonDesignerService {
   designNodeOperationType: XJsonSchemaOperationType = null;
 
   /** 完整的jsonSchemaData */
-  private _jsonSchemaDataset: IPageSchema = getInitialSchemaData();
+  private _jsonSchemaDataset: IPageSchema = getInitialPageSchemaData();
 
   /**
    * 完整的jsonSchemaData
@@ -109,7 +109,7 @@ export class XJsonDesignerService {
    * @param data 组件资源对象
    * @returns 组件Schema对象
    */
-  getJsonSchema(
+  genNodeSchemaData(
     data: IComponentResource,
     targetIndex: number,
     compConfig: Record<string, RhSafeAny>,
@@ -127,7 +127,8 @@ export class XJsonDesignerService {
       'type',
     ]);
 
-    const compProps = data?.['x-component-props'] || ``;
+    // FIXME:`IComponentResource`没有`x-component-props`属性，初始化属性方法需添加
+    const compProps = data?.['x-component-props'];
     this.getComponentProps(
       data.name as DesignerComponentType,
       compConfig,
@@ -139,24 +140,32 @@ export class XJsonDesignerService {
     nodeData = {
       key: guid(),
       // title: tempCompResourceDto.description,
-      select: false,
+      // select: false,
       type: tempCompResourceDto.type,
       compType: tempCompResourceDto.name as DesignerComponentType,
       name: this.setJsonSchemaName(
         tempCompResourceDto.name as DesignerComponentType
       ),
       displayName: tempCompResourceDto.displayName,
-      description: tempCompResourceDto.description,
+      // description: tempCompResourceDto.description,
       //updateTime: updateTime,
       parent: parent.key,
       // icon: tempCompResourceDto.icon,
-      'x-component': tempCompResourceDto.name,
-      'x-component-props': compProps,
-      'x-component-styles': this.getDefaultStyle(data.type),
-      'x-wrapper-styles': {},
-      'x-component-events': {},
-      'x-component-class': null,
+      // 'x-component': tempCompResourceDto.name,
+      // 'x-component-props': compProps,
+      // 'x-component-styles': this.genDefaultStyle(data.type),
+      // 'x-wrapper-styles': {},
+      // 'x-component-events': {},
+      // 'x-component-class': null,
     };
+
+    if (typeof compProps === 'object') {
+      nodeData['x-component-props'] = compProps;
+    }
+    const defaultStyle = this.genDefaultStyle;
+    if (typeof defaultStyle === 'object') {
+      nodeData['x-component-styles'] = defaultStyle;
+    }
 
     // 操作json map的数据
     XJsonMapData.set(nodeData as IComponentSchema);
@@ -177,7 +186,6 @@ export class XJsonDesignerService {
       //   nodeData.children.push(tempData);
       //   XJsonMapData.set(tempData);
       // }
-    } else {
       nodeData.children = [];
     }
 
@@ -308,17 +316,20 @@ export class XJsonDesignerService {
   /** 重置JSON Schema */
   resetSchemaData() {
     this.tabSer.resetTatSetDatas();
-    const newJson = getInitialSchemaData();
+    const newJson = getInitialPageSchemaData();
     this.refreshSchemaData('init', newJson);
     return newJson;
   }
 
-  private getDefaultStyle(type: string) {
-    if (type == 'special')
-      return { height: '100%', width: '100%', minHeight: '100px' };
-    const defaultStyle =
-      type === 'container' ? { minHeight: DEFAULT_MIN_HEIGHT } : {};
-    return defaultStyle;
+  private genDefaultStyle(type: string) {
+    switch (type) {
+      case 'special':
+        return { height: '100%', width: '100%', minHeight: '100px' };
+      case 'container':
+        return { minHeight: DEFAULT_MIN_HEIGHT };
+      default:
+        return null;
+    }
   }
 
   /** 删除节点后，递归删除节点及其子节点的mapData */

@@ -281,7 +281,7 @@ export class XDroplistContainerComponent implements OnDestroy, AfterViewInit {
     parent: IComponentSchema,
     targetIndex: number
   ): IComponentSchema {
-    const wrapperSchemaData = this.jsonDesignerSer.getJsonSchema(
+    const wrapperSchemaData = this.jsonDesignerSer.genNodeSchemaData(
       compResourceData,
       targetIndex,
       compConfig,

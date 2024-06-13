@@ -3,7 +3,7 @@ import { WithNil } from '@x/base/model';
 import {
   JSON_SCHEMA_NODE_KEY,
   JSON_SCHEMA_ROOT_KEY,
-  getInitialSchemaData,
+  getInitialPageSchemaData,
 } from '@x/lcdp/data';
 import {
   DesignerComponentType,
@@ -15,7 +15,7 @@ import {
 import { XJsonMapData } from '@x/lcdp/core';
 import { guid } from '@x/base/core';
 import { XToolbarTabsService } from './toolbar-tabs.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * lcdp动态渲染服务
@@ -23,11 +23,11 @@ import { BehaviorSubject, Subject } from 'rxjs';
 @Injectable()
 export class XJsonSchemaService {
   /** 完整的jsonSchemaData */
-  private _jsonSchemaData: IPageSchema = getInitialSchemaData();
+  private _jsonSchemaData: IPageSchema = getInitialPageSchemaData();
 
-  jsonSchemaData$ = new BehaviorSubject<IPageSchema>(
-    this.rootJsonSchemaDataset
-  );
+  // jsonSchemaData$ = new BehaviorSubject<IPageSchema>(
+  //   this.rootJsonSchemaDataset
+  // );
 
   /**
    * 完整的jsonSchemaData
@@ -52,16 +52,22 @@ export class XJsonSchemaService {
     return this._isRunTime;
   }
 
-  private _jsonSchemaDatasetSubject = new BehaviorSubject<IPageSchema>(
-    getInitialSchemaData()
+  jsonSchemaDataset$ = new BehaviorSubject<IPageSchema>(
+    getInitialPageSchemaData()
   );
 
-  get jsonSchemaDataset$() {
-    return this._jsonSchemaDatasetSubject.asObservable();
-  }
+  // get jsonSchemaDataset$() {
+  //   console.log('key', this.key);
+  //   return this._jsonSchemaDatasetSubject.asObservable();
+  // }
 
   /** 刷新`JSON Schema`的操作类型，用于消费者判定，自身组件内的`DesignerNode`是否需要刷新 */
   jsonSchemaOperationType: XJsonSchemaOperationType = null;
+
+  key = '';
+  constructor() {
+    this.key = guid();
+  }
 
   /** 将节点添加到容器组件中
    * @param parentContainerData 父节点。如果父节点不存在，表示当前节点要插到子页面中。
@@ -118,11 +124,11 @@ export class XJsonSchemaService {
   refreshSchemaData(type: XSchemaOperationType, data?: IComponentSchema) {
     switch (type) {
       case 'refresh':
-        this.jsonSchemaData$.next(this._jsonSchemaData);
+        this.jsonSchemaDataset$.next(this._jsonSchemaData);
         break;
       default:
         this._jsonSchemaData = data as IPageSchema;
-        this.jsonSchemaData$.next(data as IPageSchema);
+        this.jsonSchemaDataset$.next(data as IPageSchema);
     }
   }
 

@@ -35,7 +35,7 @@ import { debounceTime } from 'rxjs';
   styleUrl: './designer-canvas.component.less',
   // viewProviders: [XJsonDesignerService],
 })
-export class DesignerCanvasComponent extends XSchemaDataBase implements OnInit {
+export class DesignerCanvasComponent extends XSchemaDataBase {
   keyboardShortSer = inject(XKeyboardShortcutService);
 
   width = 1024;
@@ -67,13 +67,13 @@ export class DesignerCanvasComponent extends XSchemaDataBase implements OnInit {
     super();
   }
 
-  ngOnInit(): void {
-    this.jsonSchemaSer.jsonSchemaData$
-      .pipe(debounceTime(200))
-      .subscribe((data) => {
-        this.jsonSchemaData = data;
-      });
-  }
+  // ngOnInit(): void {
+  //   // this.jsonSchemaSer.jsonSchemaData$
+  //   //   .pipe(debounceTime(200))
+  //   //   .subscribe((data) => {
+  //   //     this.jsonSchemaData = data;
+  //   //   });
+  // }
   initKeyboardShortcutListener(ev: KeyboardEvent) {
     //console.log(ev);
     this.keyboardShortSer.handleKeyEvent(ev);

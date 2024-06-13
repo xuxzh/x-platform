@@ -26,22 +26,23 @@ export const JSON_SCHEMA_OPERATION_TYPE_SET: XJsonSchemaOperationType[] = [
 ];
 
 /** 初始化默认JSON Schema数据 */
-export function getInitialSchemaData(): IPageSchema {
+export function getInitialPageSchemaData(): IPageSchema {
   return {
     key: JSON_SCHEMA_ROOT_KEY,
     /** 请勿更改名称，会影响到大纲树的图标展示 */
     compType: 'home',
     displayName: '主设计页面',
     type: 'page',
-    parent: null,
+    // parent: null,
     children: [],
     /** // TODO:存放页面资源，字段名称需要修改 */
-    'x-component-props': {},
+    // 'x-component-props': {},
     'x-component-styles': {
       position: 'relative',
       // FIXME: 根据主题动态设置背景色
       // background: 'white'
     },
-    subPages: [],
+    // 子页面属性按需添加
+    // subPages: [],
   } as RhSafeAny;
 }
