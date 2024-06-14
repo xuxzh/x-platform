@@ -14,7 +14,7 @@ export const JSON_SCHEMA_NODE_KEY = 'NODE_KEY';
  * @description 对于`container`或`void`类型，需要设置最小高度
  */
 export const DEFAULT_MIN_HEIGHT = '48px';
-
+/** 存储JSON Schema中需要忽略的字段 */
 export const OMIT_FIELD_DATAS = ['select', 'expand', 'check'];
 
 export const JSON_SCHEMA_OPERATION_TYPE_SET: XJsonSchemaOperationType[] = [

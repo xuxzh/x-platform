@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   XJsonDesignerService,
@@ -17,7 +17,6 @@ import { RhSafeAny } from '@x/base/model';
 import { MsgHelper } from '@x/base/core';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { FormsModule } from '@angular/forms';
-import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'xp-designer-canvas',

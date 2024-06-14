@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { XDroplistPoolComponent } from './widgets/index';
 import {
   ANTD_COMPONENT_POOL_DATASET,
-  RH_COMPONENT_SOURCE_CONFIG,
-} from '@x/lcdp/data';
+  X_COMPONENT_POOL,
+} from './infrastructure';
 import { XLcdpSharedService } from './services';
 import { XRenderComponentModule } from './components';
 const widgets = [XDroplistPoolComponent];
@@ -13,7 +13,7 @@ const widgets = [XDroplistPoolComponent];
   exports: [...widgets, XRenderComponentModule],
   providers: [
     {
-      provide: RH_COMPONENT_SOURCE_CONFIG,
+      provide: X_COMPONENT_POOL,
       useValue: ANTD_COMPONENT_POOL_DATASET,
     },
     XLcdpSharedService,

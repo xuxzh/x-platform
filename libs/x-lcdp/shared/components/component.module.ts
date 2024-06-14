@@ -1,4 +1,11 @@
 import { NgModule } from '@angular/core';
+import { XBasicButtonComponent } from './general';
+import { XBasicDivComponent } from './container';
 
-@NgModule({})
+const poolDatas = [XBasicButtonComponent, XBasicDivComponent];
+
+@NgModule({
+  imports: [...poolDatas],
+  exports: [...poolDatas],
+})
 export class XRenderComponentModule {}

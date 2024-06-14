@@ -141,7 +141,7 @@ export class IEventListener {
 /** 组件池组件资源模型 */
 export interface IComponentResource extends IDisplay {
   type: RhComponentResourceType;
-  component: Type<RhSafeAny> | null;
+  component?: Type<RhSafeAny> | null;
   /** 是否包含子容器
    * @description 包含子容器的`container`组件，会在拖动时自动初始化子容器JSON数据
    */
@@ -152,9 +152,9 @@ export interface IComponentResource extends IDisplay {
   icon?: string;
 }
 
-export type IComponentResourceGroup = IDisplay & {
-  children: IComponentResource[];
-};
+// export type IComponentResourceGroup = IDisplay & {
+//   children: IComponentResource[];
+// };
 
 export interface IDataLinkConfig {
   enabled: boolean;

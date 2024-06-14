@@ -28,8 +28,6 @@ export class XCompRenderDirective implements OnChanges {
   @Output() xSelectChange = new EventEmitter<boolean>();
   /** 拖动的组件对象 */
   @Input() rhComponentSchema!: IComponentSchema;
-  /** 不弹出错误弹窗 */
-  @Input() rhNoErrorModal = false;
 
   private _key: WithNil<string> = null;
 
@@ -77,24 +75,16 @@ export class XCompRenderDirective implements OnChanges {
       this.rhComponentSchema
     );
     if (!this.rhComponentSchema?.compType || !targetComp) {
-      if (this.rhNoErrorModal)
-        console.error(
-          `该模型${this.rhComponentSchema.compType}没有关联组件实例，渲染已终止!`
-        );
+      console.error(
+        `该模型${this.rhComponentSchema.compType}没有关联组件实例，渲染已终止!`
+      );
       return;
     }
-    // // 忽略处理`template`类型组件池数据的处理
-    // if (targetComp.type === 'template') {
-    //   return;
-    // }
     if (interruptPredicate && interruptPredicate(this.rhComponentSchema)) {
       return;
     }
     if (!targetComp.component) {
-      if (!this.rhNoErrorModal)
-        MsgHelper.ShowErrorModal(
-          '该模型没有设置对应的component类，渲染已终止！'
-        );
+      MsgHelper.ShowErrorModal('该模型没有设置对应的component类，渲染已终止！');
       return;
     }
     const componentRef = this.containerRef.createComponent(
@@ -110,7 +100,7 @@ export class XCompRenderDirective implements OnChanges {
 
     /** 存在组件默认属性中包含而json中不存在时，需要给一个默认赋值 */
     compConfig = { ...defaultCompConfig, ...compConfig };
-    console.log(compConfig);
+    // console.log(compConfig);
     const compInstance = componentRef.instance;
     Object.entries(compConfig).forEach(([key, value]) => {
       (compInstance as Record<string, RhSafeAny>)[key] = value;

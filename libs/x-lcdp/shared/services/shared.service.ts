@@ -1,18 +1,18 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { WithNil } from '@x/base/model';
-import { RH_COMPONENT_SOURCE_CONFIG } from '@x/lcdp/data';
 import {
   IComponentResource,
   IComponentSchema,
   IComponentPoolData,
   XComponentIconMapping,
 } from '@x/lcdp/model';
+import { X_COMPONENT_POOL } from '../infrastructure';
 
 @Injectable()
 export class XLcdpSharedService {
   constructor(
     @Optional()
-    @Inject(RH_COMPONENT_SOURCE_CONFIG)
+    @Inject(X_COMPONENT_POOL)
     private compSourceDataset: IComponentPoolData[]
   ) {
     //

@@ -2,21 +2,22 @@ import { InjectionToken } from '@angular/core';
 import {
   DesignerComponentType,
   IComponentResource,
-  IComponentResourceGroup,
   XComponentIconMapping as Icons,
 } from '@x/lcdp/model';
 // import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { XBasicButtonComponent, XBasicDivComponent } from '@x/base/shared';
+// import { XBasicButtonComponent, XBasicDivComponent } from '@x/base/shared';
 
-/** 组件池数据 */
-export const RH_COMPONENT_SOURCE_CONFIG = new InjectionToken<
-  IComponentResource[]
->('RH_COMPONENT_SOURCE_CONFIG');
+import { XBasicButtonComponent, XBasicDivComponent } from '../components/index';
+
+/** 组件池数据提供商令牌 */
+export const X_COMPONENT_POOL = new InjectionToken<IComponentResource[]>(
+  'X_COMPONENT_POOL'
+);
 
 /**
  * 组件池数据源:(ng-zorro-antd组件库)
  */
-export const ANTD_COMPONENT_POOL_DATASET: IComponentResourceGroup[] = [
+export const ANTD_COMPONENT_POOL_DATASET: IComponentResource[] = [
   {
     name: 'General Component',
     displayName: '通用组件',

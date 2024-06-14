@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 
 @Component({
-  selector: 'x-basic-btn',
+  selector: 'x-basic-button',
   standalone: true,
-  imports: [NzButtonModule],
+  imports: [CommonModule, NzButtonModule],
   templateUrl: './basic-button.component.html',
   styleUrl: './basic-button.component.less',
 })

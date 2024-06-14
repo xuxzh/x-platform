@@ -4,7 +4,7 @@ import { XSharedModule } from '@x/base/shared';
 import { XLcdpSharedModule } from '@x/lcdp/shared';
 import { FormsModule } from '@angular/forms';
 import { IComponentResource } from '@x/lcdp/model';
-import { RH_COMPONENT_SOURCE_CONFIG } from '@x/lcdp/data';
+import { X_COMPONENT_POOL } from '@x/lcdp/shared';
 import { XLcdpDesignerModule } from '@x/lcdp/designer';
 
 @Component({
@@ -23,7 +23,7 @@ import { XLcdpDesignerModule } from '@x/lcdp/designer';
 export class DesignerPoolComponent {
   searchValue = '';
 
-  collapseDataset: IComponentResource[] = inject(RH_COMPONENT_SOURCE_CONFIG);
+  collapseDataset: IComponentResource[] = inject(X_COMPONENT_POOL);
 
   searchValueChange(searchValue: string) {
     //
