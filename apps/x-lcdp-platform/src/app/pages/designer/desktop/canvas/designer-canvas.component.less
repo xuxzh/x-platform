@@ -87,12 +87,17 @@
   .component-wrapper.active:hover {
     border: 1px solid @nz-color-primary;
   }
-
-  :host::ng-deep .designer-page > nz-tabset > div > div.ant-tabs-content {
-    height: 100%;
-  }
 }
 
 :host::ng-deep .designer-page > nz-tabset > div > div.ant-tabs-content {
+  height: 100%;
+}
+
+:host::ng-deep
+  .designer-page
+  > nz-tabset
+  > div
+  > div.ant-tabs-content
+  > div.ant-tabs-tabpane {
   height: 100%;
 }

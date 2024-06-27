@@ -1,41 +1,22 @@
-<div
-  class="size-full entire-page"
-  (keydown)="initKeyboardShortcutListener($event)"
->
+<div class="size-full entire-page" (keydown)="initKeyboardShortcutListener($event)">
   <x-canvas-with-ruler>
     <!-- page区域 -->
-    <div
-      id="designer-page"
-      class="size-full rh-main-container designer-page"
-      [class.active]="
+    <div id="designer-page" class="size-full rh-main-container designer-page" [class.active]="
         jsonSchemaData &&
         jsonSchemaData.key &&
         jsonDesignerSer.selectStatusObj[jsonSchemaData.key]
-      "
-      [ngStyle]="pageStyle"
-      (click)="onSelectPage($event)"
-      (drop)="onDragEnter($event)"
-      (dragleave)="preventDefault($event)"
-      (dragenter)="preventDefault($event)"
-      (dragover)="preventDefault($event)"
-    >
-      <nz-tabset
-        class="size-full"
-        [nzSelectedIndex]="tabSer.selectedTabIndex + 1"
-        [nzTabBarStyle]="{ display: 'none' }"
-      >
+      " [ngStyle]="pageStyle" (click)="onSelectPage($event)" (drop)="onDragEnter($event)"
+      (dragleave)="preventDefault($event)" (dragenter)="preventDefault($event)" (dragover)="preventDefault($event)">
+      <nz-tabset class="size-full" [nzSelectedIndex]="tabSer.selectedTabIndex + 1"
+        [nzTabBarStyle]="{ display: 'none' }">
         <nz-tab>
-          <x-droplist-container
-            [rhData]="jsonSchemaData"
-          ></x-droplist-container>
+          <x-droplist-container [rhData]="jsonSchemaData"></x-droplist-container>
         </nz-tab>
-        <nz-tab
-          *ngFor="
+        <nz-tab *ngFor="
             let item of jsonSchemaData.subPages;
             index as i;
             trackBy: trackByIndex
-          "
-        >
+          ">
           <ng-template nz-tab>
             <x-droplist-container [rhData]="item"></x-droplist-container>
           </ng-template>
@@ -53,14 +34,7 @@
     <nz-form-item>
       <nz-form-label nzRequired nzSpan="6">列数</nz-form-label>
       <nz-form-control nzSpan="14">
-        <nz-input-number
-          class="size-full"
-          [(ngModel)]="colCount"
-          [nzMin]="1"
-          [nzMax]="24"
-          [nzStep]="1"
-          name="colCount"
-        >
+        <nz-input-number class="size-full" [(ngModel)]="colCount" [nzMin]="1" [nzMax]="24" [nzStep]="1" name="colCount">
         </nz-input-number>
       </nz-form-control>
     </nz-form-item>

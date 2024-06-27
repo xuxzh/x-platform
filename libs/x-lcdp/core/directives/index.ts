@@ -1,1 +1,1 @@
-export * from './basic.popover';
+export default void 0;

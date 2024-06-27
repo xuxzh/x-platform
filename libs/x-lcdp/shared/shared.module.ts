@@ -5,12 +5,11 @@ import {
   X_COMPONENT_POOL,
 } from './infrastructure';
 import { XLcdpSharedService } from './services';
-import { XRenderComponentModule } from './components';
 const widgets = [XDroplistPoolComponent];
 
 @NgModule({
   imports: [...widgets],
-  exports: [...widgets, XRenderComponentModule],
+  exports: [...widgets],
   providers: [
     {
       provide: X_COMPONENT_POOL,

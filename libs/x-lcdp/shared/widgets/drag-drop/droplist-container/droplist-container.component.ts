@@ -1,11 +1,10 @@
-import { XCompRenderDirective } from './../../../directives/index';
+import { XCompRenderComponent } from './../../../directives/comp-render.component';
 import {
   CdkDrag,
   CdkDragDrop,
   CdkDragMove,
   CdkDragRelease,
   CdkDropList,
-  DragDropModule,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
@@ -35,18 +34,20 @@ import {
   IPageSchema,
 } from '@x/lcdp/model';
 import { COMPONENT_FIELD_SETTING_MAPPED } from '@x/lcdp/data';
-import { NzPopoverModule } from 'ng-zorro-antd/popover';
-import { XPopoverDirective, XJsonMapData } from '@x/lcdp/core';
+// import { NzPopoverModule } from 'ng-zorro-antd/popover';
+import { XJsonMapData } from '@x/lcdp/core';
 import { XPoolItemComponent } from '../pool-item/pool-item.component';
 
 @Component({
   imports: [
     CommonModule,
-    DragDropModule,
-    NzPopoverModule,
-    XPopoverDirective,
+    // DragDropModule,
+    // NzPopoverModule,
+    // XPopoverDirective,
+    CdkDropList,
+    CdkDrag,
     XPoolItemComponent,
-    XCompRenderDirective,
+    XCompRenderComponent,
   ],
   selector: 'x-droplist-container',
   styleUrl: './droplist-container.component.less',
@@ -190,10 +191,6 @@ export class XDroplistContainerComponent implements OnDestroy, AfterViewInit {
     }
 
     return drop.id === this.dragDropSer.currentHoverDropListId;
-  }
-
-  trackByTimeStamp(index: number): number | string {
-    return index; //isNil(item?.updateTime) ? index : item.updateTime;
   }
 
   stopPropagation($event: Event) {

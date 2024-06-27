@@ -7,7 +7,7 @@ import {
 // import { NzButtonComponent } from 'ng-zorro-antd/button';
 // import { XBasicButtonComponent, XBasicDivComponent } from '@x/base/shared';
 
-import { XBasicButtonComponent, XBasicDivComponent } from '../components/index';
+import { XBasicButtonComponent, XBasicDivComponent } from '@x/lcdp/render';
 
 /** 组件池数据提供商令牌 */
 export const X_COMPONENT_POOL = new InjectionToken<IComponentResource[]>(

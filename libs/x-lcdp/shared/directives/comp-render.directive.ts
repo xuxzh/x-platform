@@ -9,6 +9,7 @@ import {
   SimpleChanges,
   OnChanges,
   ComponentRef,
+  inject,
 } from '@angular/core';
 import { XLcdpSharedService } from '../services';
 import { IComponentSchema } from '@x/lcdp/model';
@@ -22,6 +23,7 @@ import { COMPONENT_FIELD_SETTING_MAPPED } from '@x/lcdp/data';
 @Directive({
   selector: '[xCompRender]',
   standalone: true,
+  providers: [XLcdpSharedService],
 })
 export class XCompRenderDirective implements OnChanges {
   @Input() xSelect = false;
@@ -50,10 +52,8 @@ export class XCompRenderDirective implements OnChanges {
     return this.xSelect;
   }
 
-  constructor(
-    protected containerRef: ViewContainerRef,
-    protected sharedSer: XLcdpSharedService
-  ) {}
+  containerRef = inject(ViewContainerRef);
+  sharedSer = inject(XLcdpSharedService);
 
   ngOnChanges(changes: SimpleChanges): void {
     const { rhComponentSchema } = changes;
@@ -64,12 +64,9 @@ export class XCompRenderDirective implements OnChanges {
 
   /**
    * 组件的动态渲染
-   * @param interruptPredicate 中断组件渲染
    * @returns
    */
-  protected loadComponent(
-    interruptPredicate?: (targetComponent: WithNil<IComponentSchema>) => boolean
-  ) {
+  protected loadComponent() {
     this.containerRef.clear();
     const targetComp = this.sharedSer.getTargetComponent(
       this.rhComponentSchema
@@ -80,38 +77,41 @@ export class XCompRenderDirective implements OnChanges {
       );
       return;
     }
-    if (interruptPredicate && interruptPredicate(this.rhComponentSchema)) {
-      return;
-    }
     if (!targetComp.component) {
       MsgHelper.ShowErrorModal('该模型没有设置对应的component类，渲染已终止！');
       return;
     }
-    const componentRef = this.containerRef.createComponent(
-      targetComp.component
-    );
-    const defaultCompConfig: Record<string, RhSafeAny> = {};
-    COMPONENT_FIELD_SETTING_MAPPED[this.rhComponentSchema?.compType]?.forEach(
-      (ele) => {
-        defaultCompConfig[ele.name] = ele.defaultValue;
-      }
-    );
-    let compConfig = this.rhComponentSchema?.['x-component-props'] || {};
+    try {
+      const componentRef = this.containerRef.createComponent(
+        targetComp.component
+      );
+      const defaultCompConfig: Record<string, RhSafeAny> = {};
+      COMPONENT_FIELD_SETTING_MAPPED[this.rhComponentSchema?.compType]?.forEach(
+        (ele) => {
+          defaultCompConfig[ele.name] = ele.defaultValue;
+        }
+      );
+      let compConfig = this.rhComponentSchema?.['x-component-props'] || {};
 
-    /** 存在组件默认属性中包含而json中不存在时，需要给一个默认赋值 */
-    compConfig = { ...defaultCompConfig, ...compConfig };
-    // console.log(compConfig);
-    const compInstance = componentRef.instance;
-    Object.entries(compConfig).forEach(([key, value]) => {
-      (compInstance as Record<string, RhSafeAny>)[key] = value;
-      // if (Object.hasOwnProperty.call(compInstance, 'nzDanger')) {
+      /** 存在组件默认属性中包含而json中不存在时，需要给一个默认赋值 */
+      compConfig = { ...defaultCompConfig, ...compConfig };
+      // console.log(compConfig);
+      const compInstance = componentRef.instance;
+      Object.entries(compConfig).forEach(([key, value]) => {
+        (compInstance as Record<string, RhSafeAny>)[key] = value;
+        // if (Object.hasOwnProperty.call(compInstance, 'nzDanger')) {
 
-      // }
-    });
-    // 所有的组件都需要设置`_nodeData`属性
-    (componentRef.instance as Record<string, RhSafeAny>)['_nodeData'] =
-      this.rhComponentSchema;
-    this.loadCustom(componentRef);
+        // }
+      });
+      // 所有的组件都需要设置`_nodeData`属性
+      (componentRef.instance as Record<string, RhSafeAny>)['_nodeData'] =
+        this.rhComponentSchema;
+      this.loadCustom(componentRef);
+    } catch (error) {
+      throw new Error(
+        `组件${targetComp.name}渲染(createComponent)发生错误:${error}`
+      );
+    }
   }
 
   public loadCustom(componentRef: ComponentRef<RhSafeAny>) {
